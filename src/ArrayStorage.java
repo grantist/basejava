@@ -28,15 +28,15 @@ public class ArrayStorage {
         for(int j=0; j<nElems; j++)
             if(storage[j].toString().equals(uuid)) {
                 storage[j]=storage[nElems-1];
-                  nElems--;
+                storage[nElems-1]=null;
+                nElems--;
             }
         }
     /**
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        array=Arrays.copyOfRange(storage,0,nElems);
-        return array;
+        return Arrays.copyOfRange(storage,0,nElems);
     }
 
     int size() {
