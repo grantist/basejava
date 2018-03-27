@@ -54,7 +54,7 @@ public class ArrayStorage {
                 storage[size] = r;
                 size++;
             } else {
-                System.out.println("Array has this resume!");
+                System.out.println("Can't save resume. Array has yet this resume!");
             }
         } else {
             System.out.println("Can't add resume. The array is overflowed!");
