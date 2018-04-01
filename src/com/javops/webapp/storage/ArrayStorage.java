@@ -8,8 +8,31 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    private Resume[] storage = new Resume[10000];
+    private Resume[] storage = new Resume[3];
     private int size = 0;//количество элементов в массиве
+
+
+    public boolean isEmpty() { //метод возвращает true, если массив пустой
+        return (size == -1);
+    }
+
+    public boolean isFull() { //  метод возвращает true, если массив переполнен
+        return (size == 3);
+    }
+
+    public boolean find(Resume r) // Поиск заданного значения в массиве
+    {
+        int i;
+        for (i = 0; i < size; i++) { // Для каждого элемента
+            if (storage[i] == r) { // Значение найдено?
+                break;
+            }// Да - выход из цикла
+            if (i ==size) { // Достигнут последний элемент?
+                return false; // Да
+            }
+        }
+        return true; //Нет
+    }
 
     public void clear() {
         Arrays.fill(storage, null);
@@ -17,43 +40,50 @@ public class ArrayStorage {
     }
 
     public void update(Resume r) {
-        int index = getIndex(r.getUuid());
-        if (index == -1) {
-            System.out.println("Resume " + r.getUuid() + " not exist.");
-
-        } else {
-            storage[index] = r;
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(r.getUuid())) {
+                storage[i] = r;
+                System.out.println("The resume has updated!");
+            } else System.out.println("Can't find the resume!");
         }
     }
-    public void save(Resume r) {
-        if (getIndex(r.getUuid()) != -1) {
-            System.out.println("Resume " + r.getUuid() + " already exist.");
-        } else if (size == storage.length) {
-            System.out.println("Storage overflow.");
-        } else {
-            storage[size] = r;
-            size++;
-        }
 
+    public void save(Resume r) {
+        if (!isFull()) {
+            if (!find(r)) {
+                storage[size] = r;
+                size++;
+            } else {
+                System.out.println("Can't save resume. Array has yet this resume!");
+            }
+        } else {
+            System.out.println("Can't add resume. The array is overflowed!");
+
+        }
     }
 
     public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (getIndex(uuid) == -1) {
-            System.out.println("Resume " + uuid + " not exist.");
-            return null;
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return storage[i];
+            } else {
+                System.out.println("Can't find the resume");
+            }
         }
-        return storage[index];
+        return null;
     }
 
     public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (getIndex(uuid) == -1) {
-            System.out.println("Resume " + uuid + " not exist.");
-        } else {
-            size--;
-            storage[index] = storage[size];
-            storage[size] = null;
+        if (!isEmpty()) {
+            for (int i = 0; i < size; i++) {
+                if (storage[i].getUuid().equals(uuid)) {
+                    size--;
+                    storage[i] = storage[size];
+                    storage[size] = null;
+                } else {
+                    System.out.println("Can't find the resume!");
+                }
+            }
         }
     }
 
@@ -61,24 +91,10 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     public Resume[] getAll() {
-        Resume[] result = new Resume[size];
-        for (int i = 0; i < size; i++) {
-            result[i] = storage[i];
-        }
-        return result;
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
     public int size() {
-
         return size;
-    }
-
-    private int getIndex(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return i;
-            }
-        }
-        return -1;
     }
 }
