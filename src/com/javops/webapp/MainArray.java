@@ -1,4 +1,4 @@
-package com.javops.webapp.storage;
+package com.javops.webapp;
 
 import com.javops.webapp.model.Resume;
 import com.javops.webapp.storage.ArrayStorage;
