@@ -12,7 +12,6 @@ public abstract class AbstractArrayStorage implements Storage {
     protected int size = 0;//количество элементов в массиве
 
     public int size() {
-
         return size;
     }
 

@@ -2,9 +2,11 @@ package com.javops.webapp;
 
 import com.javops.webapp.model.Resume;
 import com.javops.webapp.storage.ArrayStorage;
+import com.javops.webapp.storage.SortedArrayStorage;
 
 public class MainTestArrayStorage {
     static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
+
 
     public static void main(String[] args) {
         final Resume r1 = new Resume();
@@ -27,8 +29,11 @@ public class MainTestArrayStorage {
         printAll();
         ARRAY_STORAGE.clear();
         printAll();
-
         System.out.println("Size: " + ARRAY_STORAGE.size());
+
+        ARRAY_STORAGE.update(r1);
+        System.out.println("Get r1: " + ARRAY_STORAGE.get(r1.getUuid()));
+
     }
 
     static void printAll() {
