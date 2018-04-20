@@ -2,7 +2,6 @@ package com.javops.webapp;
 
 import com.javops.webapp.model.Resume;
 import com.javops.webapp.storage.ArrayStorage;
-import com.javops.webapp.storage.SortedArrayStorage;
 
 public class MainTestArrayStorage {
     static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();

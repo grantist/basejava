@@ -2,8 +2,6 @@ package com.javops.webapp.storage;
 
 import com.javops.webapp.model.Resume;
 
-import java.util.Arrays;
-
 /**
  * Array based storage for Resumes
  */

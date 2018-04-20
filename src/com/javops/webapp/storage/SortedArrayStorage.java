@@ -2,9 +2,6 @@ package com.javops.webapp.storage;
 
 import com.javops.webapp.model.Resume;
 
-import java.util.Arrays;
-import java.util.Comparator;
-
 import static java.util.Arrays.*;
 
 /**
@@ -12,15 +9,19 @@ import static java.util.Arrays.*;
  */
 public class SortedArrayStorage extends AbstractArrayStorage {
 
-    @Override
-    public void clear() {
-        Arrays.fill(storage, 0, size, null);
-        size = 0;
+    public void save(Resume r) {
+        if (getIndex(r.getUuid()) != -1) {
+            System.out.println("Resume " + r.getUuid() + " already exist.");
+        } else if (size == storage.length) {
+            System.out.println("Storage overflow.");
+        } else {
+            storage[size] = r;
+            size++;
+        }
     }
 
     @Override
     public void update(Resume r) {
-        Arrays.sort(storage);
         int index = getIndex(r.getUuid());
         if (index == -1) {
             System.out.println("Resume " + r.getUuid() + " not exist.");
@@ -30,22 +31,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     @Override
-    public void save(Resume r) {
-        Arrays.sort(storage);
-        if (getIndex(r.getUuid()) != -1) {
-            System.out.println("Resume " + r.getUuid() + " already exist.");
-        } else if (size == storage.length) {
-            System.out.println("Storage overflow.");
-        } else {
-            storage[size] = r;
-            size++;
-        }
-
-    }
-
-    @Override
     public void delete(String uuid) {
-        Arrays.sort(storage);
         int index = getIndex(uuid);
         if (getIndex(uuid) == -1) {
             System.out.println("Resume " + uuid + " not exist.");
@@ -54,13 +40,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
             storage[index] = storage[size];
             storage[size] = null;
         }
-
-    }
-
-    @Override
-    public Resume[] getAll() {
-        Arrays.sort(storage);
-        return Arrays.copyOfRange(storage, 0, size);
     }
 
     @Override

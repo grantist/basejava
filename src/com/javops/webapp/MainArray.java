@@ -1,7 +1,6 @@
 package com.javops.webapp;
 
 import com.javops.webapp.model.Resume;
-import com.javops.webapp.storage.ArrayStorage;
 import com.javops.webapp.storage.SortedArrayStorage;
 import com.javops.webapp.storage.Storage;
 
