@@ -10,25 +10,7 @@ import java.util.Arrays;
 /**
  * Created by TRACTEL_RND on 04.04.2018.
  */
-public abstract class AbstractArrayStorage implements Storage {
-
-    protected static final int STORAGE_LIMIT = 10000;
-    protected Resume[] storage = new Resume[STORAGE_LIMIT];
-    protected int size = 0;//количество элементов в массиве
-
-    public int size() {
-        return size;
-    } //template method
-
-    public void clear() {   //template method
-        Arrays.fill(storage, 0, size, null);
-        size = 0;
-    }
-
-    public Resume[] getAll() {  //template method
-        return Arrays.copyOfRange(storage, 0, size);
-    }
-
+public abstract class AbstractArrayStorage extends AbstractStorage {
 
     public void save(Resume resume) {
         int index = getIndex(resume.getUuid());
