@@ -1,8 +1,10 @@
 package com.javops.webapp.storage;
 
+import com.javops.webapp.exception.NotExistStorageException;
 import com.javops.webapp.model.Resume;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -10,7 +12,8 @@ import java.util.List;
  */
 public class ListStorage extends AbstractStorage {
 
-    List<Resume> list = new ArrayList<>();
+    private List<Resume> list = new ArrayList<>();
+    private Iterator<Resume> iterator = list.iterator();
 
     @Override
     public void save(Resume resume) {
@@ -19,7 +22,11 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public Resume get(String uuid) {
-        return get(uuid);
+        int index = list.indexOf(uuid);
+        if (index < 0) {
+            throw new NotExistStorageException(uuid);
+        }
+        return storage[index];
     }
 
     @Override
@@ -30,7 +37,12 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public void delete(String uuid) {
-        list.remove(uuid);
+        while (iterator.hasNext()) {
+            Resume resume = iterator.next();
+            if (resume.getUuid().equals(uuid)) {
+                iterator.remove();
+            }
+        }
     }
 
 }
