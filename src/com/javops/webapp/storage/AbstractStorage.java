@@ -16,14 +16,7 @@ public abstract class AbstractStorage implements Storage {
     protected int size = 0;
 
 
-    protected int getIndex(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (storage[i].getUuid().equals(uuid)) {
-                return i;
-            }
-        }
-        return -1;
-    }
+    protected abstract int getIndex(String uuid);
 
     public boolean NotExistStorageException(String uuid) {
         int index = getIndex(uuid);
