@@ -12,52 +12,43 @@ import java.util.Arrays;
  */
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
+    protected Resume[] storage = new Resume[STORAGE_LIMIT];
+
     public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index >= 0) {
-            throw new ExistStorageException(resume.getUuid());
-        } else if (size == storage.length) {
+        if (!ExistStorageException(resume.getUuid()) && (size == storage.length)) {
             throw new StorageException("Storage overflow", resume.getUuid());
         } else {
-            insertElement(resume, index);
+            insertElement(resume, getIndex(resume.getUuid()));
             size++;
         }
     }
 
     public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index == -1) {
-            throw new NotExistStorageException(resume.getUuid());
-
-        } else {
-            storage[index] = resume;
+        if (!NotExistStorageException(resume.getUuid())) {
+            storage[getIndex(resume.getUuid())] = resume;
         }
     }
 
     public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (getIndex(uuid) < 0) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            fillDeletedElement(index);
+        if (!NotExistStorageException(uuid)) {
+            fillDeletedElement(getIndex(uuid));
             storage[size - 1] = null;
             size--;
         }
     }
 
-    public Resume get(String uuid) { //template method
-        int index = getIndex(uuid);
-        if (getIndex(uuid) < 0) {
-            throw new NotExistStorageException(uuid);
+    public Resume get(String uuid) {
+        if (!NotExistStorageException(uuid)) {
+            return storage[getIndex(uuid)];
         }
-        return storage[index];
+        return null;
     }
 
     protected abstract void fillDeletedElement(int index);
 
     protected abstract void insertElement(Resume resume, int index);
 
-    protected abstract int getIndex(String uuid);
+    // protected abstract int getIndex(String uuid);
 
 
 }

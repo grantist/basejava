@@ -12,27 +12,27 @@ import java.util.List;
  */
 public class ListStorage extends AbstractStorage {
 
-    private List<Resume> list = new ArrayList<>();
-    private Iterator<Resume> iterator = list.iterator();
+    private List<Resume> storage = new ArrayList<>();
+    private Iterator<Resume> iterator = storage.iterator();
 
     @Override
     public void save(Resume resume) {
-        list.add(resume);
+        storage.add(resume);
     }
 
     @Override
     public Resume get(String uuid) {
-        int index = list.indexOf(uuid);
+        int index = storage.indexOf(uuid);
         if (index < 0) {
-            throw new NotExistStorageException(uuid);
+            ExistStorageException(uuid);
         }
-        return storage[index];
+        return storage.get(index);
     }
 
     @Override
     public void update(Resume resume) {
 
-        list.add(list.indexOf(resume), resume);
+        storage.add(storage.indexOf(resume), resume);
     }
 
     @Override

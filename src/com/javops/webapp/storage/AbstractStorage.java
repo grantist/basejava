@@ -1,5 +1,7 @@
 package com.javops.webapp.storage;
 
+import com.javops.webapp.exception.ExistStorageException;
+import com.javops.webapp.exception.NotExistStorageException;
 import com.javops.webapp.model.Resume;
 
 import java.util.Arrays;
@@ -13,6 +15,32 @@ public abstract class AbstractStorage implements Storage {
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
+
+    protected int getIndex(String uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].getUuid().equals(uuid)) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    public boolean NotExistStorageException(String uuid) {
+        int index = getIndex(uuid);
+        if (index < 0) {
+            throw new NotExistStorageException(uuid);
+        }
+        return false;
+    }
+
+    public boolean ExistStorageException(String uuid) {
+        int index = getIndex(uuid);
+        if (index >= 0) {
+            ExistStorageException(uuid);
+        }
+        return false;
+    }
+
     @Override
     public void clear() {
         Arrays.fill(storage, 0, size, null);
@@ -21,6 +49,7 @@ public abstract class AbstractStorage implements Storage {
 
     @Override
     public Resume[] getAll() {
+
         return Arrays.copyOfRange(storage, 0, size);
     }
 
@@ -28,5 +57,7 @@ public abstract class AbstractStorage implements Storage {
     public int size() {
         return size;
     }
+
+
 }
 
