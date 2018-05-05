@@ -15,7 +15,6 @@ public abstract class AbstractStorage implements Storage {
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
-
     protected abstract int getIndex(String uuid);
 
     public boolean NotExistStorageException(String uuid) {
