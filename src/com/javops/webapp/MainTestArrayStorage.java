@@ -11,6 +11,7 @@ public class MainTestArrayStorage {
         final Resume r2 = new Resume();
         final Resume r3 = new Resume();
 
+
         ARRAY_STORAGE.save(r1);
         ARRAY_STORAGE.save(r2);
         ARRAY_STORAGE.save(r3);
