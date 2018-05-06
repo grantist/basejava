@@ -1,15 +1,10 @@
 package com.javops.webapp.model;
 
-/**
- * com.urise.webapp.model.com.javops.webapp.model.Resume class
- */
-public class Resume {
+
+public class Resume implements Comparable<Resume> {
+
     // Unique identifier
     private String uuid;
-    @Override
-    public String toString() {
-        return uuid;
-    }
 
     public String getUuid() {
         return uuid;
@@ -27,11 +22,20 @@ public class Resume {
         Resume resume = (Resume) o;
 
         return uuid.equals(resume.uuid);
-
     }
 
     @Override
     public int hashCode() {
         return uuid.hashCode();
+    }
+
+    @Override
+    public String toString() {
+        return uuid;
+    }
+
+    @Override
+    public int compareTo(Resume o) {
+        return uuid.compareTo(o.uuid);
     }
 }
