@@ -33,7 +33,7 @@ public class ArrayStorage extends AbstractArrayStorage {
 
     public void delete(String uuid) {
         int index = getIndex(uuid);
-        if (index == -1) {
+        if (index <= -1) {
             System.out.println("Resume " + uuid + " not exist");
         } else {
             storage[index] = storage[size - 1];
