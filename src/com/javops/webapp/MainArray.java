@@ -2,19 +2,25 @@ package com.javops.webapp;
 
 import com.javops.webapp.model.Resume;
 import com.javops.webapp.storage.ArrayStorage;
+import com.javops.webapp.storage.SortedArrayStorage;
 import com.javops.webapp.storage.Storage;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * Test for com.urise.webapp.storage.com.javops.webapp.storage.ArrayStorage
  */
 public class MainArray {
-    private final static Storage ARRAY_STORAGE = new ArrayStorage();
+    private final static Storage ARRAY_STORAGE = new SortedArrayStorage();
 
     public static void main(String[] args) throws IOException {
+
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
         Resume r;
         while (true) {
@@ -36,14 +42,12 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    r = new Resume();
-                    r.setUuid(uuid);
+                    r = new Resume(uuid);
                     ARRAY_STORAGE.save(r);
                     printAll();
                     break;
                 case "update":
-                    r = new Resume();
-                    r.setUuid(uuid);
+                    r = new Resume(uuid);
                     ARRAY_STORAGE.update(r);
                     printAll();
                     break;
@@ -66,6 +70,7 @@ public class MainArray {
             }
         }
     }
+
 
     static void printAll() {
         Resume[] all = ARRAY_STORAGE.getAll();

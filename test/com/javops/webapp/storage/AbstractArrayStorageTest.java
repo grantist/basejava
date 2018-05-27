@@ -13,29 +13,29 @@ import static org.junit.Assert.*;
 
 /**
  * Created by TRACTEL_RND on 22.04.2018.
- */
+
 public abstract class AbstractArrayStorageTest {
 
     private Storage storage = new ArrayStorage();
     private static final String UUID_1 = "UUID_1";
-    private static final Resume RESUME_1 = new Resume(UUID_1);
+    //private static final Resume RESUME_1 = new Resume(UUID_1);
 
     private static final String UUID_2 = "UUID_2";
-    private static final Resume RESUME_2 = new Resume(UUID_2);
+   // private static final Resume RESUME_2 = new Resume(UUID_2);
 
 
     private static final String UUID_3 = "UUID_3";
-    private static final Resume RESUME_3 = new Resume(UUID_3);
+   // private static final Resume RESUME_3 = new Resume(UUID_3);
 
     private static final String UUID_4 = "UUID_4";
-    private static final Resume RESUME_4 = new Resume(UUID_4);
+   // private static final Resume RESUME_4 = new Resume(UUID_4);
 
 
     protected AbstractArrayStorageTest(Storage storage) {
         this.storage = storage;
     }
 
-    @Before
+  /*  @Before
     public void setUP() throws Exception {
         storage.clear();
         storage.save(RESUME_1);
@@ -140,3 +140,4 @@ public abstract class AbstractArrayStorageTest {
         Assert.assertEquals(r, storage.get(r.getUuid()));
     }
 }
+*/

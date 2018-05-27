@@ -3,8 +3,7 @@ package com.javops.webapp.storage;
 /**
  * Created by TRACTEL_RND on 22.04.2018.
  */
-public class SortedArrayStorageTest extends AbstractArrayStorageTest {
-    public SortedArrayStorageTest() {
-        super(new SortedArrayStorage());
-    }
+/*public class SortedArrayStorageTest extends AbstractArrayStorage {
+
 }
+*/
