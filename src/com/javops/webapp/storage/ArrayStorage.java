@@ -14,14 +14,11 @@ public class ArrayStorage extends AbstractArrayStorage {
     }
 
     public void insertElement(Resume resume, int index) {
-        storage[size - index - 1] = resume;
-        size++;
-
+        storage[size] = resume;
     }
 
     public void deleteElement(String uuid) {
-        storage[getIndex(uuid)] = storage[size - 1];
-        storage[size - 1] = null;
-        size--;
+        storage[getIndex(uuid)] = storage[size];
+        storage[size] = null;
     }
 }
