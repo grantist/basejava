@@ -17,7 +17,7 @@ import java.util.TreeSet;
  * Test for com.urise.webapp.storage.com.javops.webapp.storage.ArrayStorage
  */
 public class MainArray {
-    private final static Storage ARRAY_STORAGE = new SortedArrayStorage();
+    private final static Storage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) throws IOException {
 
