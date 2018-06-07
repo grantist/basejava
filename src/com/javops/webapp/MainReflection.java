@@ -26,7 +26,5 @@ public class MainReflection {
         System.out.println(method.invoke(resume));
 
 
-
-
     }
 }
