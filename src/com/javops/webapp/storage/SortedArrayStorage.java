@@ -13,8 +13,8 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         storage[newIndex] = resume;
     }
 
-    public void deleteElement(String uuid) {
-        storage[getIndex(uuid)] = storage[size];
+    public void deleteElement(int index) {
+        storage[index] = storage[size-1];
     }
 
 
