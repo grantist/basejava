@@ -14,7 +14,7 @@ public class SortedArrayStorage extends AbstractArrayStorage {
     }
 
     public void deleteElement(int index) {
-        storage[index] = storage[size-1];
+        storage[index] = storage[size - 1];
     }
 
 
