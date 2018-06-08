@@ -32,7 +32,7 @@ public abstract class AbstractArrayStorage implements Storage {
         if (index < 0) {
             throw new NotExistStorageException(uuid);
         } else {
-            deleteElement(getIndex(uuid));
+            deleteElement(index);
             size--;
             storage[size] = null;
         }
