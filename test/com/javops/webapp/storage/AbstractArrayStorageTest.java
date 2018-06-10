@@ -1,6 +1,8 @@
 package com.javops.webapp.storage;
 
+import com.javops.webapp.exception.ExistStorageException;
 import com.javops.webapp.exception.NotExistStorageException;
+import com.javops.webapp.exception.StorageException;
 import com.javops.webapp.model.Resume;
 import com.sun.xml.internal.ws.policy.AssertionSet;
 import org.junit.Assert;
@@ -8,12 +10,13 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static com.javops.webapp.storage.AbstractArrayStorage.STORAGE_LIMIT;
 import static org.junit.Assert.*;
 
 /**
  * Created by TRACTEL_RND on 04.06.2018.
  */
-public class AbstractArrayStorageTest {
+public abstract class AbstractArrayStorageTest {
 
     public Storage storage;
 
@@ -24,7 +27,6 @@ public class AbstractArrayStorageTest {
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
-
 
     @Before
     public void setUp() throws Exception {
@@ -42,9 +44,8 @@ public class AbstractArrayStorageTest {
         assertEquals(4, storage.size());
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = NotExistStorageException.class)
     public void delete() throws Exception {
-
         assertEquals(storage.size(), 3);
         storage.delete(UUID_1);
         assertEquals(storage.size(), 2);
@@ -59,6 +60,7 @@ public class AbstractArrayStorageTest {
 
     @Test
     public void clear() throws Exception {
+        storage.clear();
         Assert.assertEquals(0, storage.size());
     }
 
@@ -84,6 +86,23 @@ public class AbstractArrayStorageTest {
     @Test(expected = NotExistStorageException.class)
     public void getNotExist() throws Exception {
         storage.get("dummy");
+    }
+
+    @Test(expected = StorageException.class)
+    public void saveOverFlow() throws Exception {
+        try {
+            for (int i = 4; i <= AbstractArrayStorage.STORAGE_LIMIT; i++) {
+                storage.save(new Resume());
+            }
+        } catch (StorageException e) {
+            Assert.fail();
+        }
+        storage.save(new Resume());
+    }
+
+    @Test(expected = ExistStorageException.class)
+    public void ExistException() throws Exception {
+        storage.save(new Resume(UUID_3));
     }
 
 }
