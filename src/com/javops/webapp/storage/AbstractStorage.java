@@ -1,0 +1,74 @@
+package com.javops.webapp.storage;
+
+import com.javops.webapp.exception.ExistStorageException;
+import com.javops.webapp.exception.NotExistStorageException;
+import com.javops.webapp.exception.StorageException;
+import com.javops.webapp.model.Resume;
+
+import java.util.Arrays;
+
+public abstract class AbstractStorage implements Storage {
+
+    protected static final int STORAGE_LIMIT = 10000;
+    protected Resume[] storage = new Resume[STORAGE_LIMIT];
+    protected int size = 0;
+
+    public int size() {
+        return size;
+    }
+
+    public void clear() {
+        Arrays.fill(storage, 0, size, null);
+        size = 0;
+    }
+
+    public Resume[] getAll() {
+        return Arrays.copyOf(storage, size);
+    }
+
+    public void save(Resume resume) {
+        int index = getIndex(resume.getUuid());
+        if (index >= 0) {
+            throw new ExistStorageException(resume.getUuid());
+        } else if (size >= STORAGE_LIMIT) {
+            throw new StorageException("Storage overflow", resume.getUuid());
+        } else {
+            insertElement(resume, index);
+            size++;
+        }
+    }
+
+    public void delete(String uuid) {
+        int index = getIndex(uuid);
+        if (index < 0) {
+            throw new NotExistStorageException(uuid);
+        } else {
+            deleteElement(index);
+            size--;
+            storage[size] = null;
+        }
+    }
+
+    public Resume get(String uuid) {
+        int index = getIndex(uuid);
+        if (index < 0) {
+            throw new NotExistStorageException(uuid);
+        }
+        return storage[index];
+    }
+
+    public void update(Resume resume) {
+        int index = getIndex(resume.getUuid());
+        if (index < 0) {
+            throw new NotExistStorageException(resume.getUuid());
+        } else {
+            storage[index] = resume;
+        }
+    }
+
+    protected abstract int getIndex(String uuid);
+
+    protected abstract void insertElement(Resume resume, int index);
+
+    protected abstract void deleteElement(int index);
+}

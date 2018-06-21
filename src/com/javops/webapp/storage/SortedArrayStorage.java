@@ -5,6 +5,7 @@ import com.javops.webapp.model.Resume;
 import static java.util.Arrays.*;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
+
     public void insertElement(Resume resume, int index) {
         int newIndex = -index - 1;
         System.arraycopy(storage, newIndex, storage, newIndex + 1, size - newIndex);
@@ -18,7 +19,6 @@ public class SortedArrayStorage extends AbstractArrayStorage {
         }
     }
 
-    @Override
     protected int getIndex(String uuid) {
         Resume searchKey = new Resume(uuid);
         return binarySearch(storage, 0, size, searchKey);
