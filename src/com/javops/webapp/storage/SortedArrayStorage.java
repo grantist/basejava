@@ -2,9 +2,17 @@ package com.javops.webapp.storage;
 
 import com.javops.webapp.model.Resume;
 
+import java.util.Arrays;
+
 import static java.util.Arrays.*;
 
 public class SortedArrayStorage extends AbstractArrayStorage {
+
+    @Override
+    protected Integer getKey(String uuid) {
+        Resume key = new Resume(uuid);
+        return Arrays.binarySearch(storage, 0, size, key);
+    }
 
     public void insertElement(Resume resume, int index) {
         int newIndex = -index - 1;

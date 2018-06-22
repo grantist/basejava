@@ -2,27 +2,60 @@ package com.javops.webapp.storage;
 
 import com.javops.webapp.model.Resume;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ListStorage extends AbstractStorage {
 
-    protected void insertElement(Resume resume, int index) {
-        int newIndex = -index - 1;
-        System.arraycopy(storage, newIndex, storage, newIndex + 1, size - newIndex);
-        storage[newIndex] = resume;
+    private List<Resume> list = new ArrayList<>();
+
+    @Override
+    public void clear() {
+        list.clear();
     }
 
-    protected void deleteElement(int index) {
-        int numMoved = size - index - 1;
-        if (numMoved > 0) {
-            System.arraycopy(storage, index + 1, storage, index, numMoved);
-        }
+    @Override
+    public Resume[] getAll() {
+        return list.toArray(new Resume[list.size()]);
     }
 
-    protected int getIndex(String uuid) {
-        for (int i = 0; i < size; i++) {
-            if (uuid.equals(storage[i].getUuid())) {
+    @Override
+    public int size() {
+        return list.size();
+    }
+
+    @Override
+    protected Object getKey(String uuid) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getUuid().equals(uuid)) {
                 return i;
             }
         }
-        return -1;
+        return null;
+    }
+
+    @Override
+    protected void newUpdate(Resume resume, Object key) {
+        list.set((Integer) key, resume);
+    }
+
+    @Override
+    protected void newSave(Resume resume, Object key) {
+        list.add(resume);
+    }
+
+    @Override
+    protected Resume newGet(Object key) {
+        return list.get((Integer) key);
+    }
+
+    @Override
+    protected void newDelete(Object key) {
+        list.remove(((Integer) key).intValue());
+    }
+
+    @Override
+    protected boolean isExist(Object key) {
+        return key != null;
     }
 }

@@ -2,73 +2,57 @@ package com.javops.webapp.storage;
 
 import com.javops.webapp.exception.ExistStorageException;
 import com.javops.webapp.exception.NotExistStorageException;
-import com.javops.webapp.exception.StorageException;
 import com.javops.webapp.model.Resume;
-
-import java.util.Arrays;
 
 public abstract class AbstractStorage implements Storage {
 
-    protected static final int STORAGE_LIMIT = 10000;
-    protected Resume[] storage = new Resume[STORAGE_LIMIT];
-    protected int size = 0;
+    protected abstract Object getKey(String key);
 
-    public int size() {
-        return size;
+    protected abstract void newUpdate(Resume resume, Object key);
+
+    protected abstract void newSave(Resume resume, Object key);
+
+    protected abstract Resume newGet(Object key);
+
+    protected abstract void newDelete(Object key);
+
+    protected abstract boolean isExist(Object key);
+
+
+    private Object getNotExistentKey(String uuid) {
+        Object key = getKey(uuid);
+        if (isExist(key)) {
+            throw new ExistStorageException(uuid);
+        }
+        return key;
     }
 
-    public void clear() {
-        Arrays.fill(storage, 0, size, null);
-        size = 0;
-    }
-
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
+    private Object getExistentKey(String uuid) {
+        Object key = getKey(uuid);
+        if (isExist(key)) {
+            throw new NotExistStorageException(uuid);
+        }
+        return key;
     }
 
     public void save(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index >= 0) {
-            throw new ExistStorageException(resume.getUuid());
-        } else if (size >= STORAGE_LIMIT) {
-            throw new StorageException("Storage overflow", resume.getUuid());
-        } else {
-            insertElement(resume, index);
-            size++;
-        }
-    }
-
-    public void delete(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        } else {
-            deleteElement(index);
-            size--;
-            storage[size] = null;
-        }
-    }
-
-    public Resume get(String uuid) {
-        int index = getIndex(uuid);
-        if (index < 0) {
-            throw new NotExistStorageException(uuid);
-        }
-        return storage[index];
+        Object key = getNotExistentKey(resume.getUuid());
+        newSave(resume, key);
     }
 
     public void update(Resume resume) {
-        int index = getIndex(resume.getUuid());
-        if (index < 0) {
-            throw new NotExistStorageException(resume.getUuid());
-        } else {
-            storage[index] = resume;
-        }
+        Object key = getExistentKey(resume.getUuid());
+        newUpdate(resume, key);
     }
 
-    protected abstract int getIndex(String uuid);
 
-    protected abstract void insertElement(Resume resume, int index);
+    public void delete(String uuid) {
+        Object key = getExistentKey(uuid);
+        newDelete(key);
+    }
 
-    protected abstract void deleteElement(int index);
+    public Resume get(String uuid) {
+        Object key = getExistentKey(uuid);
+        return newGet(key);
+    }
 }
