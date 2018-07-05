@@ -4,6 +4,7 @@ import com.javops.webapp.exception.StorageException;
 import com.javops.webapp.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
 public abstract class AbstractArrayStorage extends AbstractStorage {
 
@@ -21,15 +22,14 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         size = 0;
     }
 
-    public Resume[] getAll() {
-        return Arrays.copyOf(storage, size);
+    public List<Resume> getAllSorted() {
+        return Arrays.asList(storage);
     }
 
     @Override
     protected void newUpdate(Resume resume, Object index) {
         storage[(Integer) index] = resume;
     }
-
 
     public void newSave(Resume resume, Object index) {
         if (size == STORAGE_LIMIT) {
@@ -40,13 +40,11 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
         }
     }
 
-
     public void newDelete(Object index) {
         deleteElement((Integer) index);
         size--;
         storage[size] = null;
     }
-
 
     public Resume newGet(Object index) {
         return storage[(Integer) index];

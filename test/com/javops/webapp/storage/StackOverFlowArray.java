@@ -6,11 +6,12 @@ import org.junit.Assert;
 import org.junit.Test;
 
 /**
- * Created by TRACTEL_RND on 07.06.2018.
+ * Created by TRACTEL_RND on 05.07.2018.
  */
-public class SortedArrayStorageTest extends StackOverFlowArray {
-    public SortedArrayStorageTest() {
-        super(new SortedArrayStorage());
+public abstract class StackOverFlowArray extends AbstractStorageTest {
+
+    public StackOverFlowArray(Storage storage) {
+        super(storage);
     }
 
     @Test(expected = StorageException.class)
@@ -25,3 +26,5 @@ public class SortedArrayStorageTest extends StackOverFlowArray {
         storage.save(new Resume("A"));
     }
 }
+
+

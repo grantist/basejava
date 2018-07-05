@@ -3,32 +3,39 @@ package com.javops.webapp.storage;
 import com.javops.webapp.model.Resume;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class ListStorage extends AbstractStorage {
+/**
+ * Created by TRACTEL_RND on 20.06.2018.
+ */
+public class MapUuidStorage extends AbstractStorage {
 
-    private List<Resume> list = new ArrayList<>();
+    private Map<String, Resume> map = new HashMap<>();
 
     @Override
     public void clear() {
-        list.clear();
+        map.clear();
     }
 
     @Override
     public List<Resume> getAllSorted() {
+        List<Resume> list = new ArrayList<>();
+        list.addAll(map.values());
         return list;
     }
 
     @Override
     public int size() {
-        return list.size();
+        return map.size();
     }
 
     @Override
-    protected Integer getKey(String uuid) {
-        for ( int i = 0; i < list.size(); i++ ) {
-            if (list.get(i).getUuid().equals(uuid)) {
-                return i;
+    protected String getKey(String key) {
+        for ( String searchKey : map.keySet() ) {
+            if (searchKey.equals(key)) {
+                return key;
             }
         }
         return null;
@@ -36,28 +43,26 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     protected void newUpdate(Resume resume, Object key) {
-
-        list.set((Integer) key, resume);
+        map.put((String) key, resume);
     }
 
     @Override
     protected void newSave(Resume resume, Object key) {
-        list.add(resume);
+        map.put((String) key, resume);
     }
 
     @Override
     protected Resume newGet(Object key) {
-
-        return list.get((Integer) key);
+        return (map.get(key));
     }
 
     @Override
     protected void newDelete(Object key) {
-        list.remove(((Integer) key).intValue());
+        map.remove(key);
     }
 
     @Override
     protected boolean isExist(Object key) {
-        return key != null;
+        return map.containsKey(key);
     }
 }

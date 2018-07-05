@@ -9,10 +9,7 @@ import com.javops.webapp.storage.Storage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Test for com.urise.webapp.storage.com.javops.webapp.storage.ArrayStorage
@@ -73,14 +70,13 @@ public class MainArray {
         }
     }
 
-
     static void printAll() {
-        Resume[] all = ARRAY_STORAGE.getAll();
+        List all = ARRAY_STORAGE.getAllSorted();
         System.out.println("----------------------------");
-        if (all.length == 0) {
+        if (all.size() == 0) {
             System.out.println("Empty");
         } else {
-            for (Resume resume : all) {
+            for ( Object resume : all ) {
                 System.out.println(resume);
             }
         }
