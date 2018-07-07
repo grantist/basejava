@@ -8,7 +8,7 @@ import org.junit.Test;
 /**
  * Created by TRACTEL_RND on 07.06.2018.
  */
-public class SortedArrayStorageTest extends StackOverFlowArray {
+public class SortedArrayStorageTest extends ArrayAbstractStorageTest {
     public SortedArrayStorageTest() {
         super(new SortedArrayStorage());
     }

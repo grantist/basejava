@@ -2,7 +2,7 @@ package com.javops.webapp.model;
 
 import java.util.UUID;
 
-public class Resume {
+public class Resume implements Comparable<Resume> {
 
     // Unique identifier
     private String uuid;
@@ -10,10 +10,6 @@ public class Resume {
 
     public String getUuid() {
         return uuid;
-    }
-
-    public String getFullName() {
-        return fullName;
     }
 
     public Resume(String fullName) {
@@ -39,7 +35,13 @@ public class Resume {
     }
 
     @Override
-    public String toString() {
-        return uuid;
+    public int compareTo(Resume object) {
+        int item = fullName.compareTo(object.fullName);
+        if (item != 0) {
+            return item;
+        } else {
+            uuid.compareTo(object.uuid);
+        }
+        return 0;
     }
 }

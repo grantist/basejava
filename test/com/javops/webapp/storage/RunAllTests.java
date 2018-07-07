@@ -6,7 +6,7 @@ import org.junit.runners.Suite;
 /**
  * Created by TRACTEL_RND on 05.07.2018.
  */
-@Suite.SuiteClasses({ArrayStorageTest.class, ListStorageTest.class, SortedArrayStorageTest.class})
+@Suite.SuiteClasses({ArrayStorageTest.class, ListStorageTest.class, SortedArrayStorageTest.class, MapUuidStorageTest.class})
 @RunWith(Suite.class)
 public class RunAllTests {
 

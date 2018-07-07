@@ -67,13 +67,12 @@ public abstract class AbstractStorageTest {
     }
 
     @Test
-    public void getAll() throws Exception {
-        List<Resume> list = new ArrayList<>();
-        list.add(new Resume(UUID_1, "A"));
-        list.add(new Resume(UUID_2, "B"));
-        list.add(new Resume(UUID_3, "C"));
+    public void getAllSorted() throws Exception {
+        List<Resume> list = storage.getAllSorted();
         assertEquals(3, list.size());
+        assertEquals(list, Arrays.asList(new Resume(UUID_1, "A"), new Resume(UUID_2, "B"), new Resume(UUID_3, "B")));
     }
+
 
     @Test
     public void update() throws Exception {

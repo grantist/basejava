@@ -4,11 +4,16 @@ import com.javops.webapp.exception.ExistStorageException;
 import com.javops.webapp.exception.NotExistStorageException;
 import com.javops.webapp.model.Resume;
 
+import java.util.Collections;
+import java.util.List;
+
 public abstract class AbstractStorage implements Storage {
 
     protected abstract Object getKey(String key);
 
     protected abstract void newUpdate(Resume resume, Object key);
+
+    protected abstract boolean isExist(Object key);
 
     protected abstract void newSave(Resume resume, Object key);
 
@@ -16,8 +21,28 @@ public abstract class AbstractStorage implements Storage {
 
     protected abstract void newDelete(Object key);
 
-    protected abstract boolean isExist(Object key);
+    protected abstract List<Resume> newGetAll();
 
+
+    public void update(Resume resume) {
+        Object key = getExistentKey(resume.getUuid());
+        newUpdate(resume, key);
+    }
+
+    public void save(Resume resume) {
+        Object key = getNotExistentKey(resume.getUuid());
+        newSave(resume, key);
+    }
+
+    public void delete(String uuid) {
+        Object key = getExistentKey(uuid);
+        newDelete(key);
+    }
+
+    public Resume get(String uuid) {
+        Object key = getExistentKey(uuid);
+        return newGet(key);
+    }
 
     private Object getNotExistentKey(String uuid) {
         Object key = getKey(uuid);
@@ -35,24 +60,11 @@ public abstract class AbstractStorage implements Storage {
         return key;
     }
 
-    public void save(Resume resume) {
-        Object key = getNotExistentKey(resume.getUuid());
-        newSave(resume, key);
-    }
 
-    public void update(Resume resume) {
-        Object key = getExistentKey(resume.getUuid());
-        newUpdate(resume, key);
-    }
-
-
-    public void delete(String uuid) {
-        Object key = getExistentKey(uuid);
-        newDelete(key);
-    }
-
-    public Resume get(String uuid) {
-        Object key = getExistentKey(uuid);
-        return newGet(key);
+    @Override
+    public List<Resume> getAllSorted() {
+        List<Resume> list = newGetAll();
+        Collections.sort(list);
+        return list;
     }
 }

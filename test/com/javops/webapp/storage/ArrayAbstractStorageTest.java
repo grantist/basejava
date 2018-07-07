@@ -8,9 +8,9 @@ import org.junit.Test;
 /**
  * Created by TRACTEL_RND on 05.07.2018.
  */
-public abstract class StackOverFlowArray extends AbstractStorageTest {
+public abstract class ArrayAbstractStorageTest extends AbstractStorageTest {
 
-    public StackOverFlowArray(Storage storage) {
+    public ArrayAbstractStorageTest(Storage storage) {
         super(storage);
     }
 
