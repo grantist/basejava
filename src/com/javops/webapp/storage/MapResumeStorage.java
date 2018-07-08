@@ -2,6 +2,7 @@ package com.javops.webapp.storage;
 
 import com.javops.webapp.model.Resume;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +56,6 @@ public class MapResumeStorage extends AbstractStorage {
 
     @Override
     protected List<Resume> newGetAll() {
-        return (List) map.values();
+        return new ArrayList<>(map.values());
     }
 }

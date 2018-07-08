@@ -3,7 +3,6 @@ package com.javops.webapp.storage;
 import com.javops.webapp.model.Resume;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ListStorage extends AbstractStorage {
@@ -26,7 +25,7 @@ public class ListStorage extends AbstractStorage {
 
     @Override
     public List<Resume> newGetAll() {
-        return list;
+        return new ArrayList<>(list);
     }
 
     @Override
@@ -52,11 +51,6 @@ public class ListStorage extends AbstractStorage {
     @Override
     public void clear() {
         list.clear();
-    }
-
-    @Override
-    public List<Resume> getAllSorted() {
-        return list;
     }
 
     @Override
