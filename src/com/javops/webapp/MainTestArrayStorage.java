@@ -8,7 +8,8 @@ public class MainTestArrayStorage {
     static final ArrayStorage ARRAY_STORAGE = new ArrayStorage();
 
     public static void main(String[] args) {
-        final Resume r1 = new Resume("1", "A");
+        final Resume r1 = new Resume("1", "Petrov");
+        r1.show();
         final Resume r2 = new Resume("2", "B");
         final Resume r3 = new Resume("3", "C");
 

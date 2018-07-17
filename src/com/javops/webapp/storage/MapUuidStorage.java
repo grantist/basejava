@@ -7,7 +7,7 @@ import java.util.*;
 /**
  * Created by TRACTEL_RND on 20.06.2018.
  */
-public class MapUuidStorage extends AbstractStorage {
+public class MapUuidStorage extends AbstractStorage<String> {
 
     private Map<String, Resume> map = new HashMap<>();
 
@@ -17,28 +17,28 @@ public class MapUuidStorage extends AbstractStorage {
     }
 
     @Override
-    protected void newUpdate(Resume resume, Object uuid) {
+    protected void newUpdate(Resume resume, String uuid) {
 
-        map.put((String) uuid, resume);
+        map.put(uuid, resume);
     }
 
     @Override
-    protected boolean isExist(Object uuid) {
-        return map.containsKey(uuid);
+    protected boolean isExist(String uuid) {
+        return map.containsKey( uuid);
     }
 
     @Override
-    protected void newSave(Resume resume, Object uuid) {
-        map.put((String) uuid, resume);
+    protected void newSave(Resume resume, String uuid) {
+        map.put( uuid, resume);
     }
 
     @Override
-    protected Resume newGet(Object uuid) {
+    protected Resume newGet(String uuid) {
         return (map.get(uuid));
     }
 
     @Override
-    protected void newDelete(Object uuid) {
+    protected void newDelete(String uuid) {
         map.remove(uuid);
     }
 

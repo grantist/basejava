@@ -6,15 +6,15 @@ import com.javops.webapp.model.Resume;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
 
     protected static final int STORAGE_LIMIT = 10000;
     protected Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
 
     @Override
-    protected void newUpdate(Resume resume, Object index) {
-        storage[(Integer) index] = resume;
+    protected void newUpdate(Resume resume, Integer index) {
+        storage[index] = resume;
     }
 
     @Override
@@ -23,30 +23,30 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    public void newSave(Resume resume, Object index) {
+    public void newSave(Resume resume, Integer index) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", resume.getUuid());
         } else {
-            insertElement(resume, (Integer) index);
+            insertElement(resume, index);
             size++;
         }
     }
 
     @Override
-    public Resume newGet(Object index) {
-        return storage[(Integer) index];
+    public Resume newGet(Integer index) {
+        return storage[index];
     }
 
     @Override
-    public void newDelete(Object index) {
-        deleteElement((Integer) index);
+    public void newDelete(Integer index) {
+        deleteElement(index);
         size--;
         storage[size] = null;
     }
 
     @Override
-    protected boolean isExist(Object index) {
-        return (Integer) index >= 0;
+    protected boolean isExist(Integer index) {
+        return index >= 0;
     }
 
     @Override
