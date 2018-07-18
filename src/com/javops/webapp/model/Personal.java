@@ -5,17 +5,15 @@ import java.util.ArrayList;
 /**
  * Created by TRACTEL_RND on 12.07.2018.
  */
-public class Personal {
-    ArrayList<String> personal = new ArrayList<>();
+public class Personal extends SectionString {
 
-    public Personal(ArrayList<String> personal) {
-        this.personal = personal;
+    public Personal(String personal) {
+        super(personal);
     }
 
+    @Override
     void show() {
         System.out.println(SectionType.PERSONAL.getTitle());
-        for (String s : personal) {
-            System.out.println(s);
-        }
+        super.show();
     }
 }

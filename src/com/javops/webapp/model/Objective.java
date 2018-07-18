@@ -5,17 +5,14 @@ import java.util.ArrayList;
 /**
  * Created by TRACTEL_RND on 12.07.2018.
  */
-public class Objective {
-    private ArrayList<String> objective = new ArrayList<>();
-
-    public Objective(ArrayList<String> objective) {
-        this.objective = objective;
+public class Objective extends SectionString {
+    public Objective(String objective) {
+        super(objective);
     }
 
+    @Override
     void show() {
         System.out.println(SectionType.OBJECTIVE.getTitle());
-        for (String s : objective) {
-            System.out.println(s);
-        }
+        super.show();
     }
 }

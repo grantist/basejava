@@ -1,22 +1,22 @@
 package com.javops.webapp.model;
 
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by TRACTEL_RND on 12.07.2018.
  */
-public class Education {
+public class Education extends SectionStringMap {
 
-    private ArrayList<String> education = new ArrayList();
-
-    public Education(ArrayList<String> education) {
-        this.education = education;
+    public Education(Map<Date, String> education) {
+        super(education);
     }
 
+    @Override
     void show() {
         System.out.println(SectionType.EDUCATION.getTitle());
-        for (String s : education) {
-            System.out.println(s);
-        }
+        super.show();
     }
 }
