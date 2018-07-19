@@ -1,22 +1,16 @@
 package com.javops.webapp.model;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 
 public class Resume implements Comparable<Resume> {
 
     // Unique identifier
     private String uuid;
     private final String fullName;
-
-    private AchievementAndQualification achAndQual = new AchievementAndQualification(new ArrayList<>(), new ArrayList<>());
-    private Contacts contacts = new Contacts("+898754321", "kjh@yahoo.com", "Gosha");
-    private Education education = new Education(new HashMap<>());
-    private Experience experience = new Experience(new HashMap<>());
-    private Objective objective = new Objective("ffffff");
-    private Personal personal = new Personal("blablabal");
+    private Map<ContactType, String> contact = new HashMap<>();
+    private Map<SectionType, String> section = new HashMap<>();
+    SectionString personal = new SectionString(SectionType.PERSONAL, "3333");
+    SectionString objective = new SectionString(SectionType.OBJECTIVE, "blabla");
 
     public String getUuid() {
         return uuid;
@@ -68,11 +62,8 @@ public class Resume implements Comparable<Resume> {
     }
 
     public void show() {
-        contacts.show();
-        objective.show();
         personal.show();
-        achAndQual.show();
-        experience.show();
-        education.show();
+        objective.show();
     }
+
 }
