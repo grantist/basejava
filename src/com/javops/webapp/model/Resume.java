@@ -8,9 +8,7 @@ public class Resume implements Comparable<Resume> {
     private String uuid;
     private final String fullName;
     private Map<ContactType, String> contact = new HashMap<>();
-    private Map<SectionType, String> section = new HashMap<>();
-    SectionString personal = new SectionString(SectionType.PERSONAL, "3333");
-    SectionString objective = new SectionString(SectionType.OBJECTIVE, "blabla");
+    private Map<SectionType, Title> section = new HashMap<>();
 
     public String getUuid() {
         return uuid;
@@ -59,11 +57,6 @@ public class Resume implements Comparable<Resume> {
     @Override
     public String toString() {
         return uuid + '(' + fullName + ')';
-    }
-
-    public void show() {
-        personal.show();
-        objective.show();
     }
 
 }

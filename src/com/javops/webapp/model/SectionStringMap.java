@@ -1,24 +1,37 @@
 package com.javops.webapp.model;
 
-import javax.xml.crypto.Data;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by TRACTEL_RND on 18.07.2018.
  */
 public class SectionStringMap extends Title {
-    Map<Date, String> map = new HashMap<>();
 
-    public SectionStringMap(SectionType type, Map<Date, String> map) {
+    SectionType type;
+    ArrayList list;
+    //EnumMap<SectionType, ArrayList> maps = new EnumMap(SectionType.class);
+
+    Map<ContactType, String> mapsContact = new HashMap<>();
+
+
+    public SectionStringMap(SectionType type, ArrayList list) {
         this.type = type;
-        this.map = map;
+        this.list = list;
     }
 
+    public SectionStringMap(HashMap mapsContact) {
+        this.mapsContact = mapsContact;
+    }
+
+
     void show() {
-        super.show();
-        for (Map.Entry entry : map.entrySet()) {
+        for (Object s : list) {
+            System.out.println(s);
+        }
+    }
+
+    void showContact() {
+        for (Map.Entry entry : mapsContact.entrySet()) {
             System.out.println(entry.getKey() + ": "
                     + entry.getValue());
         }

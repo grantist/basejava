@@ -8,14 +8,15 @@ import java.util.ArrayList;
 public class SectionStringList extends Title {
 
     private ArrayList<String> stringList = new ArrayList<>();
+    SectionType type;
 
     public SectionStringList(SectionType type, ArrayList<String> stringList) {
-        this.type = type;
         this.stringList = stringList;
+        this.type = type;
     }
 
     void show() {
-        super.show();
+        System.out.println(type.getTitle());
         for (String s : stringList) {
             System.out.println(s);
         }

@@ -15,7 +15,7 @@ public enum SectionType {
         this.title = title;
     }
 
-    private String title;
+    public String title;
 
     public String getTitle() {
         return title;
