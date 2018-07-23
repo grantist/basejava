@@ -1,24 +1,20 @@
 package com.javops.webapp.model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by TRACTEL_RND on 18.07.2018.
  */
 public class SectionStringList extends Title {
 
-    private ArrayList<String> stringList = new ArrayList<>();
-    SectionType type;
+    private List<String> stringList;
 
-    public SectionStringList(SectionType type, ArrayList<String> stringList) {
-        this.stringList = stringList;
-        this.type = type;
+    public List<String> getStringList() {
+        return stringList;
     }
 
-    void show() {
-        System.out.println(type.getTitle());
-        for (String s : stringList) {
-            System.out.println(s);
-        }
+    public SectionStringList(List<String> stringList) {
+        this.stringList = stringList;
     }
 }

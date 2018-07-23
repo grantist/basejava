@@ -7,8 +7,17 @@ public class Resume implements Comparable<Resume> {
     // Unique identifier
     private String uuid;
     private final String fullName;
-    private Map<ContactType, String> contact = new HashMap<>();
-    private Map<SectionType, Title> section = new HashMap<>();
+
+    private Map<ContactType, String> contact = new EnumMap(ContactType.class);
+    private Map<SectionType, Title> section = new EnumMap(SectionType.class);
+
+    public String getContact(ContactType type) {
+        return contact.get(type);
+    }
+
+    public Title getSection(SectionType type) {
+        return section.get(type);
+    }
 
     public String getUuid() {
         return uuid;
