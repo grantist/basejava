@@ -1,24 +1,26 @@
 package com.javops.webapp.model;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 /**
  * Created by TRACTEL_RND on 23.07.2018.
  */
-public class WorkPlace extends Title {
-
-    private final String nameJob;
+public class WorkPlace {
     private final String title;
     private final LocalDate start;
+    private final LocalDate end;
+    private final String description;
+    private final Link linkCompany;
 
     @Override
     public String toString() {
         return "WorkPlace{" +
-                "nameJob='" + nameJob + '\'' +
-                ", title='" + title + '\'' +
+                "title='" + title + '\'' +
                 ", start=" + start +
                 ", end=" + end +
                 ", description='" + description + '\'' +
+                ", linkCompany=" + linkCompany +
                 '}';
     }
 
@@ -26,47 +28,24 @@ public class WorkPlace extends Title {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         WorkPlace workPlace = (WorkPlace) o;
-
-        if (!nameJob.equals(workPlace.nameJob)) return false;
-        if (!title.equals(workPlace.title)) return false;
-        if (!start.equals(workPlace.start)) return false;
-        if (!end.equals(workPlace.end)) return false;
-        return description != null ? description.equals(workPlace.description) : workPlace.description == null;
-
+        return Objects.equals(title, workPlace.title) &&
+                Objects.equals(start, workPlace.start) &&
+                Objects.equals(end, workPlace.end) &&
+                Objects.equals(description, workPlace.description) &&
+                Objects.equals(linkCompany, workPlace.linkCompany);
     }
 
     @Override
     public int hashCode() {
-        int result = nameJob.hashCode();
-        result = 31 * result + title.hashCode();
-        result = 31 * result + start.hashCode();
-        result = 31 * result + end.hashCode();
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        return result;
+        return Objects.hash(title, start, end, description, linkCompany);
     }
 
-    private final LocalDate end;
-    private final String description;
-
-    public WorkPlace(String nameJob, LocalDate start, LocalDate end, String title, String description) {
-        this.nameJob = nameJob;
+    public WorkPlace(String nameJob, String url, LocalDate start, LocalDate end, String title, String description) {
         this.title = title;
         this.start = start;
         this.end = end;
         this.description = description;
-    }
-
-    public String getNameJob() {
-        return nameJob;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getDescription() {
-        return description;
+        this.linkCompany = new Link(nameJob, url);
     }
 }
