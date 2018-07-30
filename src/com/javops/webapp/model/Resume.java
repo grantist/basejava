@@ -1,5 +1,8 @@
 package com.javops.webapp.model;
 
+import com.sun.scenario.animation.shared.TimerReceiver;
+import sun.swing.SwingUtilities2;
+
 import java.util.*;
 
 public class Resume implements Comparable<Resume> {
@@ -17,6 +20,14 @@ public class Resume implements Comparable<Resume> {
 
     public Title getSection(SectionType type) {
         return section.get(type);
+    }
+
+    public Map<ContactType, String> getContacts() {
+        return contact;
+    }
+
+    public Map<SectionType, Title> getSections() {
+        return section;
     }
 
     public String getUuid() {
@@ -66,6 +77,15 @@ public class Resume implements Comparable<Resume> {
     @Override
     public String toString() {
         return uuid + '(' + fullName + ')';
+    }
+
+
+    public void addContact(ContactType type, String value) {
+        contact.put(type, value);
+    }
+
+    public void addSection(SectionType type, Title title) {
+        section.put(type, title);
     }
 
 }
