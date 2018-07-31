@@ -38,42 +38,21 @@ public class TestResume extends Resume {
         achievemnets.add("JEE AS, GlassFish (v2.1, v3), OC4J");
         resume.addSection(QUALIFICATIONS, new SectionStringList(qualifications));
 
-        List<Object> work1 = new ArrayList<Object>();
-        work1.add("Java Online Projects");
-        work1.add(start);
-        work1.add(end);
-        work1.add("YANDEX");
-        work1.add("Functional Programming");
+        WorkPlace workPlace1 = new WorkPlace("YANDEX", "www.yandex.ru", start, end, "Developer", "Developing");
+        WorkPlace workPlace2 = new WorkPlace("GOOGLE", "www.google.ru", start, end, "Developer", "Developing");
 
-        List<Object> work2 = new ArrayList<Object>();
-        work2.add("Projects");
-        work2.add(start);
-        work2.add(end);
-        work2.add("GOOGLE");
-        work2.add("Developer");
+        List<WorkPlace> workPlaceList = new ArrayList<>();
+        workPlaceList.add(workPlace1);
+        workPlaceList.add(workPlace2);
+        resume.addSection(EXPERIENCE, new WorkPlaceSection(workPlaceList));
 
-        List workplaces = new ArrayList();
-        workplaces.add(work1);
-        workplaces.add(work2);
+        WorkPlace education1 = new WorkPlace("MSU", "www.msu.ru", start, end, "Student", "Developing");
+        WorkPlace education2 = new WorkPlace("RSU", "www.rsu.ru", start, end, "Bachelor", "Developing");
 
-        resume.addSection(EXPERIENCE, new WorkPlaceSection(workplaces));
-        List<Object> education1 = new ArrayList();
-        education1.add("Coursera");
-        education1.add(start);
-        education1.add(end);
-        education1.add("Functional Programming");
-
-        List<Object> education2 = new ArrayList();
-        education2.add("CHH");
-        education2.add(start);
-        education2.add(end);
-        education2.add("Java Programming");
-
-        List educations = new ArrayList();
-        educations.add(education1);
-        educations.add(education2);
-
-        resume.addSection(EDUCATION, new WorkPlaceSection(educations));
+        List<WorkPlace> educationList = new ArrayList<>();
+        educationList.add(education1);
+        educationList.add(education2);
+        resume.addSection(EDUCATION, new WorkPlaceSection(educationList));
 
         System.out.println(resume.getContacts());
         System.out.println(resume.getSections());
