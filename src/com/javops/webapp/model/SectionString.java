@@ -6,12 +6,12 @@ package com.javops.webapp.model;
 public class SectionString extends Title {
     private final String string;
 
-    public String getString() {
-        return string;
-    }
-
     public SectionString(String string) {
         this.string = string;
+    }
+
+    public String getString() {
+        return string;
     }
 
     @Override

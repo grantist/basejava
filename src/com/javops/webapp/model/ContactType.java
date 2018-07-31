@@ -8,11 +8,11 @@ public enum ContactType {
     MAIL("ПОЧТА"),
     Skype("CКАЙП");
 
+    private String typeContact;
+
     ContactType(String typeContact) {
         this.typeContact = typeContact;
     }
-
-    private String typeContact;
 
     public String getTitle() {
         return typeContact;

@@ -1,12 +1,11 @@
 package com.javops.webapp.model;
 
-import java.time.Month;
 import java.time.LocalDate;
-import java.util.*;
+import java.time.Month;
+import java.util.ArrayList;
+import java.util.List;
 
-import static com.javops.webapp.model.ContactType.MAIL;
-import static com.javops.webapp.model.ContactType.PHONE;
-import static com.javops.webapp.model.ContactType.Skype;
+import static com.javops.webapp.model.ContactType.*;
 import static com.javops.webapp.model.SectionType.*;
 
 /**
@@ -32,15 +31,11 @@ public class TestResume extends Resume {
         resume.addSection(PERSONAL, new SectionString("Аналитический склад ума"));
 
         List<String> achievemnets = new ArrayList<String>();
-        achievemnets.add("Разработка");
-        achievemnets.add("WEB");
-        achievemnets.add("Прочее");
+        achievemnets.add("Разработка,WEB,Прочее");
         resume.addSection(ACHIEVEMENT, new SectionStringList(achievemnets));
 
         List<String> qualifications = new ArrayList<String>();
-        achievemnets.add("JEE AS");
-        achievemnets.add(" GlassFish (v2.1, v3)");
-        achievemnets.add("OC4J");
+        achievemnets.add("JEE AS, GlassFish (v2.1, v3), OC4J");
         resume.addSection(QUALIFICATIONS, new SectionStringList(qualifications));
 
         List<Object> work1 = new ArrayList<Object>();

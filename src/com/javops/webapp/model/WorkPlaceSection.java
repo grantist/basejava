@@ -1,6 +1,5 @@
 package com.javops.webapp.model;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,11 +10,6 @@ public class WorkPlaceSection extends Title {
 
     public WorkPlaceSection(List<WorkPlace> workPlaceList) {
         this.workPlaceList = workPlaceList;
-    }
-
-    @Override
-    public String toString() {
-        return workPlaceList.toString();
     }
 
     public List<WorkPlace> getWorkPlaceList() {
@@ -34,4 +28,10 @@ public class WorkPlaceSection extends Title {
     public int hashCode() {
         return workPlaceList.hashCode();
     }
+
+    @Override
+    public String toString() {
+        return workPlaceList.toString();
+    }
+
 }

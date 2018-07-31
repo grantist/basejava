@@ -13,6 +13,14 @@ public class WorkPlace {
     private final String description;
     private final Link linkCompany;
 
+    public WorkPlace(String nameJob, String url, LocalDate start, LocalDate end, String title, String description) {
+        this.title = title;
+        this.start = start;
+        this.end = end;
+        this.description = description;
+        this.linkCompany = new Link(nameJob, url);
+    }
+
     @Override
     public String toString() {
         return "WorkPlace{" +
@@ -38,14 +46,9 @@ public class WorkPlace {
 
     @Override
     public int hashCode() {
+
         return Objects.hash(title, start, end, description, linkCompany);
     }
 
-    public WorkPlace(String nameJob, String url, LocalDate start, LocalDate end, String title, String description) {
-        this.title = title;
-        this.start = start;
-        this.end = end;
-        this.description = description;
-        this.linkCompany = new Link(nameJob, url);
-    }
+
 }

@@ -11,11 +11,11 @@ public enum SectionType {
     EXPERIENCE("Опыт работы"),
     EDUCATION("Образование");
 
+    public String title;
+
     SectionType(String title) {
         this.title = title;
     }
-
-    public String title;
 
     public String getTitle() {
         return title;

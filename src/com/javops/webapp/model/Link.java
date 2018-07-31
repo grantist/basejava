@@ -6,6 +6,19 @@ public class Link {
     private final String name;
     private final String url;
 
+    public Link(String name, String url) {
+        this.name = name;
+        this.url = url;
+    }
+
+    public String getUrl() {
+        return url;
+    }
+
+    public String getName() {
+        return name;
+    }
+
     @Override
     public String toString() {
         return "Link{" +
@@ -26,18 +39,5 @@ public class Link {
     @Override
     public int hashCode() {
         return Objects.hash(name, url);
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Link(String name, String url) {
-        this.name = name;
-        this.url = url;
     }
 }

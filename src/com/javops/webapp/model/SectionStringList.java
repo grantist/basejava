@@ -1,12 +1,17 @@
 package com.javops.webapp.model;
 
 import java.util.List;
+
 /**
  * Created by TRACTEL_RND on 18.07.2018.
  */
 public class SectionStringList extends Title {
 
     private List<String> stringList;
+
+    public SectionStringList(List<String> stringList) {
+        this.stringList = stringList;
+    }
 
     public List<String> getStringList() {
         return stringList;
@@ -15,10 +20,6 @@ public class SectionStringList extends Title {
     @Override
     public String toString() {
         return stringList.toString();
-    }
-
-    public SectionStringList(List<String> stringList) {
-        this.stringList = stringList;
     }
 
     @Override
