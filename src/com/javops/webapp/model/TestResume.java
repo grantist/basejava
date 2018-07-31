@@ -57,7 +57,6 @@ public class TestResume extends Resume {
         workplaces.add(work2);
 
         resume.addSection(EXPERIENCE, new WorkPlaceSection(workplaces));
-
         List<Object> education1 = new ArrayList();
         education1.add("Coursera");
         education1.add(start);
