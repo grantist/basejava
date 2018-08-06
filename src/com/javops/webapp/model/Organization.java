@@ -6,14 +6,14 @@ import java.util.Objects;
 /**
  * Created by TRACTEL_RND on 23.07.2018.
  */
-public class WorkPlace {
+public class Organization {
     private final String title;
     private final LocalDate start;
     private final LocalDate end;
     private final String description;
     private final Link linkCompany;
 
-    public WorkPlace(String nameJob, String url, LocalDate start, LocalDate end, String title, String description) {
+    public Organization(String nameJob, String url, LocalDate start, LocalDate end, String title, String description) {
         this.title = title;
         this.start = start;
         this.end = end;
@@ -23,7 +23,7 @@ public class WorkPlace {
 
     @Override
     public String toString() {
-        return "WorkPlace{" +
+        return "Organization{" +
                 "title='" + title + '\'' +
                 ", start=" + start +
                 ", end=" + end +
@@ -36,7 +36,7 @@ public class WorkPlace {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        WorkPlace workPlace = (WorkPlace) o;
+        Organization workPlace = (Organization) o;
         return Objects.equals(title, workPlace.title) &&
                 Objects.equals(start, workPlace.start) &&
                 Objects.equals(end, workPlace.end) &&

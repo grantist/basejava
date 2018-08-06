@@ -1,21 +1,23 @@
 package com.javops.webapp.model;
 
-/**
- * Created by TRACTEL_RND on 18.07.2018.
- */
 public enum ContactType {
-    PHONE("ТЕЛЕФОН"),
-    MAIL("ПОЧТА"),
-    Skype("CКАЙП");
+    PHONE("Тел."),
+    MOBILE("Мобильный"),
+    HOME_PHONE("Домашний тел."),
+    SKYPE("Skype"),
+    MAIL("Почта"),
+    LINKEDIN("Профиль LinkedIn"),
+    GITHUB("Профиль GitHub"),
+    STATCKOVERFLOW("Профиль Stackoverflow"),
+    HOME_PAGE("Домашняя страница");
 
-    private String typeContact;
+    private final String title;
 
-    ContactType(String typeContact) {
-        this.typeContact = typeContact;
+    ContactType(String title) {
+        this.title = title;
     }
 
     public String getTitle() {
-        return typeContact;
+        return title;
     }
-
 }

@@ -5,14 +5,14 @@ import java.util.List;
 /**
  * Created by TRACTEL_RND on 24.07.2018.
  */
-public class WorkPlaceSection extends Title {
-    private final List<WorkPlace> workPlaceList;
+public class OrganizationSection extends Section {
+    private final List<Organization> workPlaceList;
 
-    public WorkPlaceSection(List<WorkPlace> workPlaceList) {
+    public OrganizationSection(List<Organization> workPlaceList) {
         this.workPlaceList = workPlaceList;
     }
 
-    public List<WorkPlace> getWorkPlaceList() {
+    public List<Organization> getWorkPlaceList() {
         return workPlaceList;
     }
 
@@ -20,7 +20,7 @@ public class WorkPlaceSection extends Title {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        WorkPlaceSection that = (WorkPlaceSection) o;
+        OrganizationSection that = (OrganizationSection) o;
         return workPlaceList.equals(that.workPlaceList);
     }
 
