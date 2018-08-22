@@ -1,54 +1,61 @@
 package com.javops.webapp.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * Created by TRACTEL_RND on 23.07.2018.
  */
 public class Organization {
-    private final String title;
-    private final LocalDate start;
-    private final LocalDate end;
-    private final String description;
-    private final Link linkCompany;
+    private final Link homePage;
+    private List<Position> position = new ArrayList<>();
 
-    public Organization(String nameJob, String url, LocalDate start, LocalDate end, String title, String description) {
-        this.title = title;
-        this.start = start;
-        this.end = end;
-        this.description = description;
-        this.linkCompany = new Link(nameJob, url);
+    public Organization(String name, String url, Position... position) {
+        this(new Link(name, url), Arrays.asList(position));
     }
 
-    @Override
-    public String toString() {
-        return "Organization{" +
-                "title='" + title + '\'' +
-                ", start=" + start +
-                ", end=" + end +
-                ", description='" + description + '\'' +
-                ", linkCompany=" + linkCompany +
-                '}';
+    public Organization(Link homePage, List<Position> positions) {
+        this.homePage = homePage;
+        this.position = positions;
+    }
+
+    public static class Position {
+        private final LocalDate startDate;
+        private final LocalDate endDate;
+        private final String title;
+        private final String description;
+
+        public Position(LocalDate startDate, LocalDate endDate, String title, String description) {
+            this.startDate = startDate;
+            this.endDate = endDate;
+            this.title = title;
+            this.description = description;
+        }
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Organization workPlace = (Organization) o;
-        return Objects.equals(title, workPlace.title) &&
-                Objects.equals(start, workPlace.start) &&
-                Objects.equals(end, workPlace.end) &&
-                Objects.equals(description, workPlace.description) &&
-                Objects.equals(linkCompany, workPlace.linkCompany);
+        Organization that = (Organization) o;
+        return Objects.equals(homePage, that.homePage) &&
+                Objects.equals(position, that.position);
     }
 
     @Override
     public int hashCode() {
-
-        return Objects.hash(title, start, end, description, linkCompany);
+        return Objects.hash(homePage, position);
     }
 
+    @Override
+    public String toString() {
+        return "Organization{" +
+                "homePage=" + homePage +
+                ", position=" + position +
+                '}';
+    }
 
 }

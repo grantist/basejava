@@ -1,4 +1,4 @@
-package com.javops.webapp.storage;
+package com.javops.webapp;
 
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;

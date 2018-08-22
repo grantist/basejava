@@ -49,7 +49,6 @@ public class Resume implements Comparable<Resume> {
         sections.put(type, title);
     }
 
-
     public String getContact(ContactType type) {
         return contacts.get(type);
     }

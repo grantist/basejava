@@ -1,37 +1,46 @@
 package com.javops.webapp.model;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by TRACTEL_RND on 24.07.2018.
  */
 public class OrganizationSection extends Section {
-    private final List<Organization> workPlaceList;
+    private final List<Organization> organizations;
 
-    public OrganizationSection(List<Organization> workPlaceList) {
-        this.workPlaceList = workPlaceList;
+    public OrganizationSection(Organization... organizations) {
+        this(Arrays.asList(organizations));
     }
 
-    public List<Organization> getWorkPlaceList() {
-        return workPlaceList;
+    public OrganizationSection(List<Organization> organizations) {
+        Objects.requireNonNull(organizations, "organizations must not be null");
+        this.organizations = organizations;
+    }
+
+    public List<Organization> getOrganizations() {
+        return organizations;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+
         OrganizationSection that = (OrganizationSection) o;
-        return workPlaceList.equals(that.workPlaceList);
+
+        return organizations.equals(that.organizations);
+
     }
 
     @Override
     public int hashCode() {
-        return workPlaceList.hashCode();
+        return organizations.hashCode();
     }
 
     @Override
     public String toString() {
-        return workPlaceList.toString();
+        return organizations.toString();
     }
-
 }

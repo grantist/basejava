@@ -11,16 +11,15 @@ import java.util.Map;
  * Created by TRACTEL_RND on 07.07.2018.
  */
 public class MapResumeStorage extends AbstractStorage<Resume> {
-
     private Map<String, Resume> map = new HashMap<>();
 
     @Override
-    protected Resume getKey(String key) {
-        return map.get(key);
+    protected Resume getSearchKey(String uuid) {
+        return map.get(uuid);
     }
 
     @Override
-    protected void newUpdate(Resume r, Resume resume) {
+    protected void doUpdate(Resume r, Resume resume) {
         map.put(r.getUuid(), r);
     }
 
@@ -30,18 +29,18 @@ public class MapResumeStorage extends AbstractStorage<Resume> {
     }
 
     @Override
-    protected void newSave(Resume r, Resume resume) {
+    protected void doSave(Resume r, Resume resume) {
         map.put(r.getUuid(), r);
     }
 
     @Override
-    protected Resume newGet(Resume resume) {
+    protected Resume doGet(Resume resume) {
         return resume;
     }
 
     @Override
-    protected void newDelete(Resume resume) {
-        map.remove((resume).getUuid());
+    protected void doDelete(Resume resume) {
+        map.remove(resume.getUuid());
     }
 
     @Override
@@ -50,12 +49,12 @@ public class MapResumeStorage extends AbstractStorage<Resume> {
     }
 
     @Override
-    public int size() {
-        return map.size();
+    public List<Resume> doCopyAll() {
+        return new ArrayList<>(map.values());
     }
 
     @Override
-    protected List<Resume> newGetAll() {
-        return new ArrayList<>(map.values());
+    public int size() {
+        return map.size();
     }
 }

@@ -2,17 +2,18 @@ package com.javops.webapp.storage;
 
 import com.javops.webapp.exception.ExistStorageException;
 import com.javops.webapp.exception.NotExistStorageException;
-import com.javops.webapp.model.Resume;
+import com.javops.webapp.model.*;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 /**
  * Created by TRACTEL_RND on 04.06.2018.
@@ -21,21 +22,47 @@ public abstract class AbstractStorageTest {
 
     protected Storage storage;
 
-    public AbstractStorageTest(Storage storage) {
-        this.storage = storage;
-    }
-
     private static final String UUID_1 = "uuid1";
     private static final String UUID_2 = "uuid2";
     private static final String UUID_3 = "uuid3";
 
+    private static final Resume R1;
+
+
+    static {
+        LocalDate start = LocalDate.of(2017, Month.NOVEMBER, 30);
+        LocalDate end = LocalDate.of(2019, Month.NOVEMBER, 30);
+
+        LocalDate start1 = LocalDate.of(3020, Month.NOVEMBER, 15);
+        LocalDate end1 = LocalDate.of(3000, Month.NOVEMBER, 15);
+
+        R1 = new Resume(UUID_1, "Name1");
+        R1.addContact(ContactType.MAIL, "yandex@ya.ru");
+        R1.addContact(ContactType.PHONE, "894568899922");
+
+        R1.addSection(SectionType.OBJECTIVE, new TextSection("Objective"));
+        R1.addSection(SectionType.PERSONAL, new TextSection("Personal"));
+
+        R1.addSection(SectionType.ACHIEVEMENT, new ListSection("A1", "A2", "A3"));
+        R1.addSection(SectionType.QUALIFICATIONS, new ListSection("C++", "C#", "Java"));
+        R1.addSection(SectionType.EXPERIENCE, new OrganizationSection(
+                new Organization("YANDEX", "www.yandex.ru",
+                        new Organization.Position(start1, end1, "Pos1", "Job1"))));
+
+        R1.addSection(SectionType.EDUCATION,
+                new OrganizationSection(
+                        new Organization("Institute", "www.yyy.ru",
+                                new Organization.Position(start, end, "Pos2", "Job2"), new Organization.Position(start, end, "pppp", "dddddd"))));
+    }
+
+    public AbstractStorageTest(Storage storage) {
+        this.storage = storage;
+    }
 
     @Before
     public void setUp() throws Exception {
         storage.clear();
         storage.save(new Resume(UUID_1, "A"));
-        storage.save(new Resume(UUID_2, "B"));
-        storage.save(new Resume(UUID_3, "C"));
     }
 
     @Test
