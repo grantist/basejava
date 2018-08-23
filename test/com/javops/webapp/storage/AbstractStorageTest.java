@@ -142,6 +142,7 @@ public abstract class AbstractStorageTest {
         assertTrue(newResume == storage.get(UUID_1));
     }
 
+
     @Test
     public void get() throws Exception {
         assertEquals(new Resume(UUID_1, "A"), storage.get(new Resume(UUID_1, "A").getUuid()));
