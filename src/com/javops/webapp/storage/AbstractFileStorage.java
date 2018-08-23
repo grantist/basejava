@@ -26,22 +26,28 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     @Override
     public void clear() {
         File[] list = directory.listFiles();
-        if (list != null) {
-            for (File name : list) {
-                name.delete();
-            }
+        if (list == null) {
+            throw new StorageException("Directory read error");
+        }
+        for (File name : list) {
+            doDelete(name);
         }
     }
 
     @Override
     public int size() {
-        File[] list = directory.listFiles();
+        String[] list = directory.list();
+        if (list == null) {
+            throw new StorageException("Directory read error");
+        }
         return list.length;
     }
 
     @Override
     protected File getSearchKey(String uuid) {
-        return new File(directory, uuid);
+        if (directory.listFiles() != null) {
+            return new File(directory, uuid);
+        } else throw new StorageException("Directory read error");
     }
 
     @Override
@@ -62,10 +68,10 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
     protected void doSave(Resume r, File file) {
         try {
             file.createNewFile();
-            doWrite(r, file);
         } catch (IOException e) {
             throw new StorageException("IO error", file.getName(), e);
         }
+        doUpdate(r, file);
     }
 
     protected abstract Resume doWrite(Resume r, File file) throws IOException;
@@ -83,21 +89,19 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     protected void doDelete(File file) {
-        if (file.exists()) {
-            file.delete();
-        } else throw new StorageException("File not exist", file.getName());
+        if (!file.delete())
+            throw new StorageException("File was deleted", file.getName());
     }
 
     @Override
     protected List<Resume> doCopyAll() {
         File[] listFile = directory.listFiles();
+        if (listFile == null) {
+            throw new StorageException("Directory is not exist");
+        }
         ArrayList<Resume> list = new ArrayList<>();
         for (File file : listFile) {
-            try {
-                list.add(doRead(file));
-            } catch (IOException e) {
-                throw new StorageException("File not exist", file.getName(), e);
-            }
+            list.add(doGet(file));
         }
         return list;
     }
