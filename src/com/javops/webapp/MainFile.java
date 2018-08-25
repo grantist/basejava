@@ -7,16 +7,19 @@ public class MainFile {
     public static void main(String[] args) {
         String dir = "./src";
         File path = new File(dir);
-        displayAll(path);
+        printDirectoryDeeply(path);
     }
 
-    static void displayAll(File path) {
-        if (path.isFile()) {
-            System.out.println(path.getName());
-        } else {
-            File files[] = path.listFiles();
-            for (File dirOrFile : files) {
-                displayAll(dirOrFile);
+    public static void printDirectoryDeeply(File dir) {
+        File files[] = dir.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    System.out.println("File: " + file.getName());
+                } else if (file.isDirectory()) {
+                    System.out.println("Directory: " + file.getName());
+                    printDirectoryDeeply(file);
+                }
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.javops.webapp.model;
 
+import java.io.Serializable;
 import java.util.EnumMap;
 import java.util.Map;
 import java.util.Objects;
@@ -8,8 +9,8 @@ import java.util.UUID;
 /**
  * com.urise.webapp.model.Resume class
  */
-public class Resume implements Comparable<Resume> {
-
+public class Resume implements Comparable<Resume>, Serializable {
+    private static final long serialVersionUID = 1L;
     // Unique identifier
     private final String uuid;
 
@@ -33,28 +34,20 @@ public class Resume implements Comparable<Resume> {
         return uuid;
     }
 
-    public Map<ContactType, String> getContacts() {
-        return contacts;
-    }
-
-    public Map<SectionType, Section> getSections() {
-        return sections;
-    }
-
-    public void addContact(ContactType type, String value) {
-        contacts.put(type, value);
-    }
-
-    public void addSection(SectionType type, Section title) {
-        sections.put(type, title);
-    }
-
     public String getContact(ContactType type) {
         return contacts.get(type);
     }
 
     public Section getSection(SectionType type) {
         return sections.get(type);
+    }
+
+    public void addContact(ContactType type, String value) {
+        contacts.put(type, value);
+    }
+
+    public void addSection(SectionType type, Section section) {
+        sections.put(type, section);
     }
 
     @Override

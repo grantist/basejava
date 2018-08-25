@@ -7,9 +7,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by TRACTEL_RND on 07.07.2018.
- */
 public class MapResumeStorage extends AbstractStorage<Resume> {
     private Map<String, Resume> map = new HashMap<>();
 
