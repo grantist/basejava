@@ -46,7 +46,7 @@ public class MainArray {
                     printAll();
                     break;
                 case "update":
-                    resume = new Resume(param,params[2]);
+                    resume = new Resume(param, params[2]);
                     ARRAY_STORAGE.update(resume);
                     printAll();
                     break;
@@ -76,7 +76,7 @@ public class MainArray {
         if (all.size() == 0) {
             System.out.println("Empty");
         } else {
-            for ( Object resume : all ) {
+            for (Object resume : all) {
                 System.out.println(resume);
             }
         }

@@ -5,9 +5,9 @@ import com.javops.webapp.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamStorage extends AbstractFileStorage implements StorageStrategy {
+public class ObjectStreamPathStorage extends AbstractPathStorage implements StorageStrategy {
 
-    public ObjectStreamStorage(File directory) {
+    protected ObjectStreamPathStorage(String directory) {
         super(directory);
     }
 
@@ -26,4 +26,5 @@ public class ObjectStreamStorage extends AbstractFileStorage implements StorageS
             throw new StorageException("Error read resume", null, e);
         }
     }
+
 }

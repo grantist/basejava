@@ -6,7 +6,6 @@ import com.javops.webapp.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
-
 import java.io.File;
 import java.time.Month;
 import java.util.Arrays;
@@ -17,6 +16,7 @@ import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = new File("C:\\Users\\TRACTEL_RND\\Test");
+    protected static final String STORAGE_PATH = "D:\\Test";
 
     protected Storage storage;
 
