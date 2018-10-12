@@ -10,13 +10,15 @@ import java.util.Objects;
 
 public abstract class AbstractFileStorage extends AbstractStorage<File> {
     private File directory;
+    private StorageStrategy storageStrategy;
 
     protected abstract void doWrite(Resume r, OutputStream os) throws IOException;
 
     protected abstract Resume doRead(InputStream is) throws IOException;
 
-    protected AbstractFileStorage(File directory) {
+    protected AbstractFileStorage(File directory, StorageStrategy storageStrategy) {
         Objects.requireNonNull(directory, "directory must not be null");
+        this.storageStrategy = storageStrategy;
         if (!directory.isDirectory()) {
             throw new IllegalArgumentException(directory.getAbsolutePath() + " is not directory");
         }
@@ -28,6 +30,9 @@ public abstract class AbstractFileStorage extends AbstractStorage<File> {
 
     @Override
     public void clear() {
+        if (directory.listFiles() == null) {
+            throw new StorageException("Error", null);
+        }
         File[] files = directory.listFiles();
         if (files != null) {
             for (File file : files) {

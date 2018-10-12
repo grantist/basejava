@@ -5,11 +5,7 @@ import com.javops.webapp.model.Resume;
 
 import java.io.*;
 
-public class ObjectStreamStorage extends AbstractFileStorage implements StorageStrategy {
-
-    public ObjectStreamStorage(File directory) {
-        super(directory);
-    }
+public class ObjectStreamStorage implements StorageStrategy {
 
     @Override
     public void doWrite(Resume r, OutputStream os) throws IOException {
