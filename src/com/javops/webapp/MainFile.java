@@ -1,44 +1,52 @@
 package com.javops.webapp;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 
 public class MainFile {
     public static void main(String[] args) {
-        String dir = "./src";
-        File path = new File(dir);
-        showFileAndDirectory(path, 0);
-    }
+        String filePath = ".\\.gitignore";
 
-    private static void showFileAndDirectory(File dirPath, int intend) {
-        String dirIntend = getTextIntend(intend);
-        /*Print Directory Name*/
-        System.out.println(dirIntend + dirPath.getName() + "/");
-        File[] files = dirPath.listFiles();
-        /*Recursion for Directories*/
-        for (File file : files) {
-            if (file.isDirectory()) {
-                showFileAndDirectory(file, intend + 1);
+        File file = new File(filePath);
+        try {
+            System.out.println(file.getCanonicalPath());
+        } catch (IOException e) {
+            throw new RuntimeException("Error", e);
+        }
+
+        File dir = new File("C:\\TRACTEL\\Продукты\\Blocfor");
+        System.out.println(dir.isDirectory());
+        String[] list = dir.list();
+        if (list != null) {
+            for (String name : list) {
+                System.out.println(name);
             }
         }
-        /*Print File Name*/
-        for (File file : files) {
-            if (file.isFile()) {
-                String fileIntend = getTextIntend(intend + 2);
-                System.out.println(fileIntend + file.getName());
-            }
+
+        try (FileInputStream fis = new FileInputStream(filePath)) {
+            System.out.println(fis.read());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
+        printDirectoryDeeply(dir, "");
     }
 
-    private static String getTextIntend(int intend) {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < intend; i++) {
-            builder.append(" |--");
+    public static void printDirectoryDeeply(File dir, String offset) {
+        File[] files = dir.listFiles();
+
+        if (files != null) {
+            for (File file : files) {
+                if (file.isFile()) {
+                    System.out.println(offset + "F: " + file.getName());
+                } else if (file.isDirectory()) {
+                    System.out.println(offset + "D: " + file.getName());
+                    printDirectoryDeeply(file, offset + "  ");
+                }
+            }
         }
-        return builder.toString();
     }
 }
-
-
 
 
 
