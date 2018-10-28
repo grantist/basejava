@@ -12,10 +12,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = new File("C:\\Users\\TRACTEL_RND\\Tes");
+    protected static final File STORAGE_DIR = new File("C:\\Users\\TRACTEL_RND\\T");
 
     protected Storage storage;
 
@@ -52,12 +51,43 @@ public abstract class AbstractStorageTest {
                                 new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", null),
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
                         new Organization("Organization12", "http://Organization12.ru")));
-        R2.addContact(ContactType.SKYPE, "skype2");
+
+        R2.addContact(ContactType.MAIL, "mail2@ya.ru");
         R2.addContact(ContactType.PHONE, "22222");
-        R1.addSection(SectionType.EXPERIENCE,
+
+        R2.addSection(SectionType.OBJECTIVE, new TextSection("Objective2"));
+        R2.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
+        R2.addSection(SectionType.ACHIEVEMENT, new ListSection("Achivment21", "Achivment22", "Achivment23"));
+        R2.addSection(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL", "JavaScript"));
+        R2.addSection(SectionType.EXPERIENCE,
                 new OrganizationSection(
-                        new Organization("Organization2", "http://Organization2.ru",
-                                new Organization.Position(2015, Month.JANUARY, "position1", "content1"))));
+                        new Organization("Organization21", "http://Organization22.ru",
+                                new Organization.Position(2005, Month.JANUARY, "position1", "content2"),
+                                new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "position2", "content22"))));
+        R2.addSection(SectionType.EDUCATION,
+                new OrganizationSection(
+                        new Organization("Institute", null,
+                                new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", null),
+                                new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
+                        new Organization("Organization22", "http://Organization23.ru")));
+
+        R3.addContact(ContactType.MAIL, "mail3@ya.ru");
+        R3.addContact(ContactType.PHONE, "33333");
+        R3.addSection(SectionType.OBJECTIVE, new TextSection("Objective3"));
+        R3.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
+        R3.addSection(SectionType.ACHIEVEMENT, new ListSection("Achivment31", "Achivment32", "Achivment33"));
+        R3.addSection(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL", "JavaScript"));
+        R3.addSection(SectionType.EXPERIENCE,
+                new OrganizationSection(
+                        new Organization("Organization31", "http://Organization32.ru",
+                                new Organization.Position(2005, Month.JANUARY, "position1", "content3"),
+                                new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "position2", "content33"))));
+        R3.addSection(SectionType.EDUCATION,
+                new OrganizationSection(
+                        new Organization("Institute", null,
+                                new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", null),
+                                new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
+                        new Organization("Organization31", "http://Organization33.ru")));
     }
 
     protected AbstractStorageTest(Storage storage) {
@@ -87,7 +117,7 @@ public abstract class AbstractStorageTest {
     public void update() throws Exception {
         Resume newResume = new Resume(UUID_1, "New Name");
         storage.update(newResume);
-        assertTrue(newResume.equals(storage.get(UUID_1)));
+        assertEquals(newResume, storage.get(UUID_1));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -145,4 +175,4 @@ public abstract class AbstractStorageTest {
     private void assertSize(int size) {
         assertEquals(size, storage.size());
     }
-    }
+}
