@@ -17,12 +17,12 @@ public class DataStreamSerializer implements StreamSerializer {
             dos.writeUTF(resume.getUuid());
             dos.writeUTF(resume.getFullName());
             Map<ContactType, String> contacts = resume.getContacts();
-            writeSection(dos, contacts.entrySet(), entry -> {
+            writeCollection(dos, contacts.entrySet(), entry -> {
                 dos.writeUTF(entry.getKey().name());
                 dos.writeUTF(entry.getValue());
             });
 
-            writeSection(dos, resume.getSections().entrySet(), entry -> {
+            writeCollection(dos, resume.getSections().entrySet(), entry -> {
                 dos.writeUTF(entry.getKey().name()); // имя секции
                 switch (entry.getKey()) {
                     case PERSONAL:
@@ -31,24 +31,29 @@ public class DataStreamSerializer implements StreamSerializer {
                         break;
                     case ACHIEVEMENT:
                     case QUALIFICATIONS:
-                        writeSection(dos, ((ListSection) entry.getValue()).getItems(), dos::writeUTF);
+                        writeCollection(dos, ((ListSection) entry.getValue()).getItems(), dos::writeUTF);
                         break;
                     case EXPERIENCE:
                     case EDUCATION:
-                        writeSection(dos, ((OrganizationSection) entry.getValue()).getOrganizations(), company -> {
+                        writeCollection(dos, ((OrganizationSection) entry.getValue()).getOrganizations(), company -> {
                             dos.writeUTF(company.getHomePage().getName());
-                            dos.writeUTF(company.getHomePage().getUrl());
-
-                            writeSection(dos, company.getPositions(), info -> {
+                            if (company.getHomePage().getUrl() != null) {
+                                dos.writeUTF(company.getHomePage().getUrl());
+                            }
+                            writeCollection(dos, company.getPositions(), info -> {
                                 writeDate(dos, info.getStartDate());
                                 writeDate(dos, info.getEndDate());
                                 dos.writeUTF(info.getTitle());
-                                dos.writeUTF(info.getDescription());
+                                if (info.getDescription() != null) {
+                                    dos.writeUTF(info.getDescription());
+                                }
                             });
                         });
                         break;
                 }
+
             });
+
         }
     }
 
@@ -79,21 +84,13 @@ public class DataStreamSerializer implements StreamSerializer {
                         break;
                     case "EXPERIENCE":
                     case "EDUCATION":
-                        resume.getSections().put(SectionType.valueOf(sectionName),
-                                readCompanySection(dis));
-                        break;
-                    default:
+                        resume.getSections().put(SectionType.valueOf(sectionName), readCompanySection(dis));
                         throw new StorageException("Unknown SectionType name " + sectionName);
                 }
+
             });
             return resume;
         }
-    }
-
-    private Map<ContactType, String> readContacts(DataInputStream in) throws IOException {
-        Map<ContactType, String> map = new HashMap<>();
-        readCustomCollection(in, () -> map.put(ContactType.valueOf(in.readUTF()), in.readUTF()));
-        return map;
     }
 
     private OrganizationSection readCompanySection(DataInputStream dis) throws IOException {
@@ -102,9 +99,17 @@ public class DataStreamSerializer implements StreamSerializer {
                         readList(dis, () ->
                                 new Organization.Position(LocalDate.parse(dis.readUTF(), format),
                                         LocalDate.parse(dis.readUTF(), format),
+
                                         dis.readUTF(), dis.readUTF())
                         ))
         ));
+    }
+
+
+    private Map<ContactType, String> readContacts(DataInputStream in) throws IOException {
+        Map<ContactType, String> map = new HashMap<>();
+        readCustomCollection(in, () -> map.put(ContactType.valueOf(in.readUTF()), in.readUTF()));
+        return map;
     }
 
     interface ItemCustomReader {
@@ -128,7 +133,7 @@ public class DataStreamSerializer implements StreamSerializer {
         return list;
     }
 
-    private <T> void writeSection(DataOutputStream out, Collection<T> items, ItemWriter<T> writer) throws IOException {
+    private <T> void writeCollection(DataOutputStream out, Collection<T> items, ItemWriter<T> writer) throws IOException {
         out.writeInt(items.size());
         for (T item : items) {
             writer.write(item);
