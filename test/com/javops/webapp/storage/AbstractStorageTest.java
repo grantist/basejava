@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = new File("C:\\Users\\TRACTEL_RND\\TT");
+    protected static final File STORAGE_DIR = new File("C:\\Users\\TRACTEL_RND\\TTTT");
 
     protected Storage storage;
 
@@ -42,13 +42,13 @@ public abstract class AbstractStorageTest {
         R1.addSection(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL", "JavaScript"));
         R1.addSection(SectionType.EXPERIENCE,
                 new OrganizationSection(
-                        new Organization("Organization11", "http://Organization11.ru",
+                        new Organization("Organization11", "wwww",
                                 new Organization.Position(2005, Month.JANUARY, "position1", "content1"),
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "position2", "content2"))));
         R1.addSection(SectionType.EDUCATION,
                 new OrganizationSection(
-                        new Organization("Institute", null,
-                                new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", null),
+                        new Organization("Institute", "www",
+                                new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", "www"),
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
                         new Organization("Organization12", "http://Organization12.ru")));
 
@@ -66,8 +66,8 @@ public abstract class AbstractStorageTest {
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "position2", "content22"))));
         R2.addSection(SectionType.EDUCATION,
                 new OrganizationSection(
-                        new Organization("Institute", null,
-                                new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", null),
+                        new Organization("Institute", "wwww",
+                                new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", "www"),
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
                         new Organization("Organization22", "http://Organization23.ru")));
 
@@ -84,10 +84,10 @@ public abstract class AbstractStorageTest {
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "position2", "content33"))));
         R3.addSection(SectionType.EDUCATION,
                 new OrganizationSection(
-                        new Organization("Institute", null,
-                                new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", null),
+                        new Organization("Institute", "nnnn",
+                                new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", "hhh"),
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
-                        new Organization("Organization31", "http://Organization33.ru")));
+                        new Organization("Organization31", "wwww")));
     }
 
     protected AbstractStorageTest(Storage storage) {

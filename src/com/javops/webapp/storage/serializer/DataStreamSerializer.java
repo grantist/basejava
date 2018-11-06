@@ -1,16 +1,13 @@
 package com.javops.webapp.storage.serializer;
 
-import com.javops.webapp.exception.StorageException;
 import com.javops.webapp.model.*;
 
 import java.io.*;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.time.Month;
 import java.util.*;
 
 public class DataStreamSerializer implements StreamSerializer {
-    private static DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
     @Override
     public void doWrite(Resume resume, OutputStream os) throws IOException {
         try (DataOutputStream dos = new DataOutputStream(os)) {
@@ -22,8 +19,7 @@ public class DataStreamSerializer implements StreamSerializer {
                 dos.writeUTF(entry.getValue());
             });
 
-            writeCollection(dos, resume.getSections().entrySet(), entry -> {
-                dos.writeUTF(entry.getKey().name()); // имя секции
+            writeCollection(dos, resume.getSections().entrySet(), entry -> {// имя секции
                 switch (entry.getKey()) {
                     case PERSONAL:
                     case OBJECTIVE:
@@ -37,16 +33,17 @@ public class DataStreamSerializer implements StreamSerializer {
                     case EDUCATION:
                         writeCollection(dos, ((OrganizationSection) entry.getValue()).getOrganizations(), company -> {
                             dos.writeUTF(company.getHomePage().getName());
-                            if (company.getHomePage().getUrl() != null) {
-                                dos.writeUTF(company.getHomePage().getUrl());
-                            }
+                            dos.writeUTF(company.getHomePage().getUrl());
                             writeCollection(dos, company.getPositions(), info -> {
                                 writeDate(dos, info.getStartDate());
                                 writeDate(dos, info.getEndDate());
+                                dos.writeInt(info.getStartDate().getYear());
+                                dos.writeInt(info.getStartDate().getMonth().getValue());
+                                dos.writeInt(info.getEndDate().getYear());
+                                dos.writeInt(info.getEndDate().getMonth().getValue());
                                 dos.writeUTF(info.getTitle());
-                                if (info.getDescription() != null) {
-                                    dos.writeUTF(info.getDescription());
-                                }
+                                dos.writeUTF(info.getDescription());
+
                             });
                         });
                         break;
@@ -69,7 +66,6 @@ public class DataStreamSerializer implements StreamSerializer {
             String fullName = dis.readUTF();
             Resume resume = new Resume(uuid, fullName);
             resume.setContacts(readContacts(dis));
-
             readCustomCollection(dis, () -> {
                 String sectionName = dis.readUTF(); // имя секции
                 switch (sectionName) {
@@ -79,15 +75,14 @@ public class DataStreamSerializer implements StreamSerializer {
                         break;
                     case "ACHIEVEMENT":
                     case "QUALIFICATIONS":
-                        resume.getSections().put(SectionType.valueOf(sectionName),
-                                new ListSection(readList(dis, dis::readUTF)));
-                        break;
+                        resume.getSections().put(SectionType.valueOf(sectionName), new ListSection(readList(dis, dis::readUTF)));
+
                     case "EXPERIENCE":
                     case "EDUCATION":
                         resume.getSections().put(SectionType.valueOf(sectionName), readCompanySection(dis));
-                        throw new StorageException("Unknown SectionType name " + sectionName);
+                    default:
+                        throw new IllegalStateException();
                 }
-
             });
             return resume;
         }
@@ -97,14 +92,10 @@ public class DataStreamSerializer implements StreamSerializer {
         return new OrganizationSection(readList(dis, () ->
                 new Organization(new Link(dis.readUTF(), dis.readUTF()),
                         readList(dis, () ->
-                                new Organization.Position(LocalDate.parse(dis.readUTF(), format),
-                                        LocalDate.parse(dis.readUTF(), format),
-
-                                        dis.readUTF(), dis.readUTF())
-                        ))
-        ));
+                                new Organization.Position(dis.readInt(), Month.of(dis.readInt()), dis.readInt(), Month.of(dis.readInt())
+                                        , dis.readUTF(), dis.readUTF()))
+                )));
     }
-
 
     private Map<ContactType, String> readContacts(DataInputStream in) throws IOException {
         Map<ContactType, String> map = new HashMap<>();

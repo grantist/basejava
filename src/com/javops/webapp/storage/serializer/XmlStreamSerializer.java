@@ -10,8 +10,9 @@ public class XmlStreamSerializer implements StreamSerializer {
     private XmlParser xmlParser;
 
     public XmlStreamSerializer() {
-        xmlParser = new XmlParser(Resume.class, Organization.class, Link.class, OrganizationSection.class,
-                TextSection.class, ListSection.class, Organization.Position.class);
+        xmlParser = new XmlParser(
+                Resume.class, Organization.class, Link.class,
+                OrganizationSection.class, TextSection.class, ListSection.class, Organization.Position.class);
     }
 
     @Override
@@ -27,5 +28,4 @@ public class XmlStreamSerializer implements StreamSerializer {
             return xmlParser.unmarshall(r);
         }
     }
-
 }
