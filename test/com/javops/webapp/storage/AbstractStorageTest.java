@@ -14,7 +14,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = new File("C:\\Users\\TRACTEL_RND\\TTTT");
+    protected static final File STORAGE_DIR = new File("C:\\Users\\TRACTEL_RND\\A");
 
     protected Storage storage;
 
@@ -42,8 +42,8 @@ public abstract class AbstractStorageTest {
         R1.addSection(SectionType.QUALIFICATIONS, new ListSection("Java", "SQL", "JavaScript"));
         R1.addSection(SectionType.EXPERIENCE,
                 new OrganizationSection(
-                        new Organization("Organization11", "wwww",
-                                new Organization.Position(2005, Month.JANUARY, "position1", "content1"),
+                        new Organization("Organization11", null,
+                                new Organization.Position(2005, Month.JANUARY, "position1", null),
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "position2", "content2"))));
         R1.addSection(SectionType.EDUCATION,
                 new OrganizationSection(
@@ -87,7 +87,7 @@ public abstract class AbstractStorageTest {
                         new Organization("Institute", "nnnn",
                                 new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", "hhh"),
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
-                        new Organization("Organization31", "wwww")));
+                        new Organization("Organization31", "www")));
     }
 
     protected AbstractStorageTest(Storage storage) {

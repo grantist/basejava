@@ -19,10 +19,16 @@ import static com.javops.webapp.util.DateUtil.of;
 /**
  * Created by TRACTEL_RND on 23.07.2018.
  */
+
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Organization implements Serializable {
     private static final long serialVersionUID = 1L;
+
     private Link homePage;
     private List<Position> positions = new ArrayList<>();
+
+    public Organization() {
+    }
 
     public Organization(String name, String url, Position... positions) {
         this(new Link(name, url), Arrays.asList(positions));
@@ -31,9 +37,6 @@ public class Organization implements Serializable {
     public Organization(Link homePage, List<Position> positions) {
         this.homePage = homePage;
         this.positions = positions;
-    }
-
-    public Organization() {
     }
 
     public Link getHomePage() {
@@ -72,13 +75,17 @@ public class Organization implements Serializable {
         private String title;
         private String description;
 
+        public Position() {
+        }
 
         public Position(int startYear, Month startMonth, String title, String description) {
             this(of(startYear, startMonth), NOW, title, description);
+            this.description = description == null ? "" : description;
         }
 
         public Position(int startYear, Month startMonth, int endYear, Month endMonth, String title, String description) {
             this(of(startYear, startMonth), of(endYear, endMonth), title, description);
+            this.description = description == null ? "" : description;
         }
 
         public Position(LocalDate startDate, LocalDate endDate, String title, String description) {
@@ -89,9 +96,7 @@ public class Organization implements Serializable {
             this.endDate = endDate;
             this.title = title;
             this.description = description;
-        }
-
-        public Position() {
+            this.description = description == null ? "" : description;
         }
 
         public LocalDate getStartDate() {
