@@ -76,7 +76,6 @@ public class DataStreamSerializer implements StreamSerializer {
                     case "ACHIEVEMENT":
                     case "QUALIFICATIONS":
                         resume.getSections().put(SectionType.valueOf(sectionName), new ListSection(readList(dis, dis::readUTF)));
-
                     case "EXPERIENCE":
                     case "EDUCATION":
                         resume.getSections().put(SectionType.valueOf(sectionName), readCompanySection(dis));
