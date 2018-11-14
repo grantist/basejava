@@ -2,7 +2,6 @@ package com.javops.webapp;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -16,8 +15,8 @@ public class MinValue {
         list.add(1);
         list.add(1);
         list.add(1);
-        list.add(2);
         list.add(3);
+        list.add(4);
         System.out.println(oddOrEven(list));
     }
 
@@ -26,11 +25,8 @@ public class MinValue {
     }
 
     public static List<Integer> oddOrEven(List<Integer> integers) {
-        Map<Boolean, List<Integer>>
-                oddsAndEvens = integers.stream()
-                .collect(Collectors.partitioningBy(i -> i % 2 == 0));
-        return oddsAndEvens.get(false).size() % 2 == 0 ?
-                oddsAndEvens.get(true) :
-                oddsAndEvens.get(false);
+
+        return integers.stream().filter(x -> (x % 2) == (integers.stream().mapToInt(Integer::intValue).sum() % 2)).collect(Collectors.toList());
+
     }
 }
