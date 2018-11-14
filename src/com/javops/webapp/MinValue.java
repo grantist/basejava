@@ -15,7 +15,6 @@ public class MinValue {
         list.add(1);
         list.add(1);
         list.add(1);
-        list.add(3);
         list.add(4);
         System.out.println(oddOrEven(list));
     }
