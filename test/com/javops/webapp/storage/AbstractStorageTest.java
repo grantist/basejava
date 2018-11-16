@@ -1,5 +1,6 @@
 package com.javops.webapp.storage;
 
+import com.javops.webapp.Config;
 import com.javops.webapp.exception.ExistStorageException;
 import com.javops.webapp.exception.NotExistStorageException;
 import com.javops.webapp.model.*;
@@ -14,7 +15,7 @@ import java.util.List;
 import static org.junit.Assert.assertEquals;
 
 public abstract class AbstractStorageTest {
-    protected static final File STORAGE_DIR = new File("C:\\Users\\TRACTEL_RND\\AA");
+    protected static final File STORAGE_DIR = Config.get().getStorageDir();
 
     protected Storage storage;
 
