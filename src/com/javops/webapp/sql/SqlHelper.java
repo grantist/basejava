@@ -14,12 +14,9 @@ public class SqlHelper {
     }
 
     public void start(String sql) {
-        start(sql, new Executor<Boolean>() {
-            @Override
-            public Boolean execute(PreparedStatement preparedStatement) throws SQLException {
-                if (preparedStatement.execute()) return true;
-                else return false;
-            }
+        start(sql, preparedStatement -> {
+            if (preparedStatement.execute()) return true;
+            else return false;
         });
     }
 
