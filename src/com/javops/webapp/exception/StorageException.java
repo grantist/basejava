@@ -1,7 +1,5 @@
 package com.javops.webapp.exception;
 
-import java.io.IOException;
-
 /**
  * Created by TRACTEL_RND on 22.04.2018.
  */
