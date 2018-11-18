@@ -1,5 +1,6 @@
 package com.javops.webapp.sql;
 
+import com.javops.webapp.exception.ExistStorageException;
 import com.javops.webapp.exception.StorageException;
 
 import java.sql.Connection;
@@ -14,10 +15,7 @@ public class SqlHelper {
     }
 
     public void start(String sql) {
-        start(sql, preparedStatement -> {
-            if (preparedStatement.execute()) return true;
-            else return false;
-        });
+        start(sql, PreparedStatement::execute);
     }
 
     public <T> T start(String sql, Executor<T> executor) {
@@ -25,7 +23,7 @@ public class SqlHelper {
              PreparedStatement ps = conn.prepareStatement(sql)) {
             return executor.execute(ps);
         } catch (SQLException e) {
-            throw new StorageException(e);
+            throw new ExistStorageException(sql);
         }
     }
 }
