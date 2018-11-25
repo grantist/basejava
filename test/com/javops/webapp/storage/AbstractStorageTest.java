@@ -53,11 +53,11 @@ public abstract class AbstractStorageTest {
                         new Organization("Institute", "www",
                                 new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", "www"),
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
-                        new Organization("Organization12", "http://Organization12.ru")));
+                        new Organization("Organization12", "http://Organization12.ru")));*/
 
         R2.addContact(ContactType.MAIL, "mail2@ya.ru");
         R2.addContact(ContactType.PHONE, "22222");
-
+/*
         R2.addSection(SectionType.OBJECTIVE, new TextSection("Objective2"));
         R2.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
         R2.addSection(SectionType.ACHIEVEMENT, new ListSection("Achivment21", "Achivment22", "Achivment23"));
@@ -73,9 +73,10 @@ public abstract class AbstractStorageTest {
                                 new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", "www"),
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
                         new Organization("Organization22", "http://Organization23.ru")));
-
+*/
         R3.addContact(ContactType.MAIL, "mail3@ya.ru");
         R3.addContact(ContactType.PHONE, "33333");
+        /*
         R3.addSection(SectionType.OBJECTIVE, new TextSection("Objective3"));
         R3.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
         R3.addSection(SectionType.ACHIEVEMENT, new ListSection("Achivment31", "Achivment32", "Achivment33"));
