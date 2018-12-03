@@ -9,12 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public abstract class AbstractStorageTest {
     protected static final File STORAGE_DIR = Config.get().getStorageDir();
@@ -37,8 +35,15 @@ public abstract class AbstractStorageTest {
         R3 = new Resume(UUID_3, "Name3");
         R4 = new Resume(UUID_4, "Name4");
 
-       R1.addContact(ContactType.MAIL, "mail1@ya.ru");
-        R1.addContact(ContactType.PHONE, "11111"); /*
+        R1.addContact(ContactType.MAIL, "mail1@ya.ru");
+        R1.addContact(ContactType.PHONE, "11111");
+
+        R4.addContact(ContactType.PHONE, "44444");
+        R4.addContact(ContactType.SKYPE, "Skype");
+
+        R2.addContact(ContactType.SKYPE, "skype2");
+        R2.addContact(ContactType.PHONE, "22222");
+        /*
         R1.addSection(SectionType.OBJECTIVE, new TextSection("Objective1"));
         R1.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
         R1.addSection(SectionType.ACHIEVEMENT, new ListSection("Achivment11", "Achivment12", "Achivment13"));
@@ -55,8 +60,8 @@ public abstract class AbstractStorageTest {
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
                         new Organization("Organization12", "http://Organization12.ru")));*/
 
-        R2.addContact(ContactType.MAIL, "mail2@ya.ru");
-        R2.addContact(ContactType.PHONE, "22222");
+     /*   R2.addContact(ContactType.MAIL, "mail2@ya.ru");
+        R2.addContact(ContactType.PHONE, "22222");*/
 /*
         R2.addSection(SectionType.OBJECTIVE, new TextSection("Objective2"));
         R2.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
@@ -74,8 +79,8 @@ public abstract class AbstractStorageTest {
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
                         new Organization("Organization22", "http://Organization23.ru")));
 */
-        R3.addContact(ContactType.MAIL, "mail3@ya.ru");
-        R3.addContact(ContactType.PHONE, "33333");
+      /*  R3.addContact(ContactType.MAIL, "mail3@ya.ru");
+        R3.addContact(ContactType.PHONE, "33333");*/
         /*
         R3.addSection(SectionType.OBJECTIVE, new TextSection("Objective3"));
         R3.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
@@ -92,7 +97,11 @@ public abstract class AbstractStorageTest {
                                 new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", "hhh"),
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
                         new Organization("Organization31", "www")));
-    }*/
+    }
+
+        R4.addContact(ContactType.MAIL, "mail4@ya.ru");
+        R4.addContact(ContactType.PHONE, "444444");
+    */
     }
 
     protected AbstractStorageTest(Storage storage) {
@@ -121,8 +130,11 @@ public abstract class AbstractStorageTest {
     @Test
     public void update() throws Exception {
         Resume newResume = new Resume(UUID_1, "New Name");
+        newResume.addContact(ContactType.MAIL, "mail1@google.com");
+        newResume.addContact(ContactType.SKYPE, "NewSkype");
+        newResume.addContact(ContactType.MOBILE, "+7 921 222-22-22");
         storage.update(newResume);
-        assertEquals(newResume, storage.get(UUID_1));
+        assertTrue(newResume.equals(storage.get(UUID_1)));
     }
 
     @Test(expected = NotExistStorageException.class)
@@ -134,9 +146,9 @@ public abstract class AbstractStorageTest {
     public void getAllSorted() throws Exception {
         List<Resume> list = storage.getAllSorted();
         assertEquals(3, list.size());
-        List<Resume> sortedResumes = Arrays.asList(R1, R2, R3);
+        List<Resume> sortedResumes = new ArrayList<Resume>(Arrays.asList(R1, R2, R3));
         Collections.sort(sortedResumes);
-        assertEquals(list, sortedResumes);
+        assertEquals((Object) sortedResumes, (Object) list);
     }
 
     @Test
@@ -181,5 +193,7 @@ public abstract class AbstractStorageTest {
 
     private void assertSize(int size) {
         assertEquals(size, storage.size());
+
+
     }
 }
