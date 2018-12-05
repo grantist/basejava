@@ -2,6 +2,7 @@ package com.javops.webapp.storage;
 
 import com.javops.webapp.model.Resume;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface Storage {
@@ -19,7 +20,7 @@ public interface Storage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    List<Resume> getAllSorted();
+    List<Resume> getAllSorted() throws SQLException;
 
     int size();
 }

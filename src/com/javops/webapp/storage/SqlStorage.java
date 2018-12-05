@@ -5,6 +5,7 @@ import com.javops.webapp.model.ContactType;
 import com.javops.webapp.model.Resume;
 import com.javops.webapp.sql.SqlHelper;
 
+import java.security.spec.ECField;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -95,11 +96,15 @@ public class SqlStorage implements Storage {
             Map<String, Resume> map = new LinkedHashMap<>();
             while (rs.next()) {
                 String uuid = rs.getString("uuid");
-                Resume resume = map.get(uuid);
-                if (resume == null) {
-                    resume = new Resume(uuid, rs.getString("full_name"));
-                    map.put(uuid, resume);
-                }
+                Resume resume = map.computeIfAbsent(uuid,
+                        u -> {
+                            try {
+                                return new Resume(u, rs.getString("full_name"));
+                            } catch (SQLException e) {
+                                e.printStackTrace();
+                            }
+                            return null;
+                        });
                 addContacts(rs, resume);
             }
             return new ArrayList<>(map.values());
@@ -114,12 +119,12 @@ public class SqlStorage implements Storage {
         });
     }
 
-    private void deleteContacts(Connection conn, Resume r) {
-        sqlHelper.execute("DELETE  FROM contact WHERE resume_uuid=?", ps -> {
+    private void deleteContacts(Connection conn, Resume r) throws SQLException {
+
+        try (PreparedStatement ps = conn.prepareStatement("DELETE  FROM contact WHERE resume_uuid=?")) {
             ps.setString(1, r.getUuid());
             ps.execute();
-            return null;
-        });
+        }
     }
 
     private void addContacts(ResultSet rs, Resume r) throws SQLException {

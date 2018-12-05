@@ -9,21 +9,20 @@ import com.javops.webapp.storage.Storage;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.sql.SQLException;
 import java.util.*;
 
 /**
  * Test for com.urise.webapp.storage.com.javops.webapp.storage.ArrayStorage
  */
 public class MainArray {
+    private final static Storage ARRAY_STORAGE = new ArrayStorage();
 
-    private final static Storage ARRAY_STORAGE = new ListStorage();
-
-    public static void main(String[] args) throws IOException {
-
+    public static void main(String[] args) throws IOException, SQLException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-        Resume resume;
+        Resume r;
         while (true) {
-            System.out.print("Введите одну из команд - (list | save fullName| delete uuid | get uuid | update uuid fullName | clear | exit): ");
+            System.out.print("Введите одну из команд - (list | save fullName | delete uuid | get uuid | update uuid fullName | clear | exit): ");
             String[] params = reader.readLine().trim().toLowerCase().split(" ");
             if (params.length < 1 || params.length > 3) {
                 System.out.println("Неверная команда.");
@@ -41,13 +40,13 @@ public class MainArray {
                     System.out.println(ARRAY_STORAGE.size());
                     break;
                 case "save":
-                    resume = new Resume(param);
-                    ARRAY_STORAGE.save(resume);
+                    r = new Resume(param);
+                    ARRAY_STORAGE.save(r);
                     printAll();
                     break;
                 case "update":
-                    resume = new Resume(param, params[2]);
-                    ARRAY_STORAGE.update(resume);
+                    r = new Resume(param, params[2]);
+                    ARRAY_STORAGE.update(r);
                     printAll();
                     break;
                 case "delete":
@@ -70,14 +69,14 @@ public class MainArray {
         }
     }
 
-    static void printAll() {
+    static void printAll() throws SQLException {
         List<Resume> all = ARRAY_STORAGE.getAllSorted();
         System.out.println("----------------------------");
         if (all.size() == 0) {
             System.out.println("Empty");
         } else {
-            for (Object resume : all) {
-                System.out.println(resume);
+            for (Resume r : all) {
+                System.out.println(r);
             }
         }
         System.out.println("----------------------------");
