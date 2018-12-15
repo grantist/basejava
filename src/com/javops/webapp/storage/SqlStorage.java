@@ -5,7 +5,6 @@ import com.javops.webapp.model.ContactType;
 import com.javops.webapp.model.Resume;
 import com.javops.webapp.sql.SqlHelper;
 
-import java.security.spec.ECField;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -96,15 +95,9 @@ public class SqlStorage implements Storage {
             Map<String, Resume> map = new LinkedHashMap<>();
             while (rs.next()) {
                 String uuid = rs.getString("uuid");
+                String s = rs.getString("full_name");
                 Resume resume = map.computeIfAbsent(uuid,
-                        u -> {
-                            try {
-                                return new Resume(u, rs.getString("full_name"));
-                            } catch (SQLException e) {
-                                e.printStackTrace();
-                            }
-                            return null;
-                        });
+                        u -> new Resume(u, s));
                 addContacts(rs, resume);
             }
             return new ArrayList<>(map.values());
