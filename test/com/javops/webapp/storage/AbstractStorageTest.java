@@ -3,13 +3,16 @@ package com.javops.webapp.storage;
 import com.javops.webapp.Config;
 import com.javops.webapp.exception.ExistStorageException;
 import com.javops.webapp.exception.NotExistStorageException;
-import com.javops.webapp.model.ContactType;
-import com.javops.webapp.model.Resume;
+import com.javops.webapp.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.*;
+import java.time.Month;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.UUID;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -43,7 +46,6 @@ public abstract class AbstractStorageTest {
 
         R2.addContact(ContactType.SKYPE, "skype2");
         R2.addContact(ContactType.PHONE, "22222");
-        /*
         R1.addSection(SectionType.OBJECTIVE, new TextSection("Objective1"));
         R1.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
         R1.addSection(SectionType.ACHIEVEMENT, new ListSection("Achivment11", "Achivment12", "Achivment13"));
@@ -58,11 +60,10 @@ public abstract class AbstractStorageTest {
                         new Organization("Institute", "www",
                                 new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", "www"),
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
-                        new Organization("Organization12", "http://Organization12.ru")));*/
+                        new Organization("Organization12", "http://Organization12.ru")));
 
-     /*   R2.addContact(ContactType.MAIL, "mail2@ya.ru");
-        R2.addContact(ContactType.PHONE, "22222");*/
-/*
+        R2.addContact(ContactType.MAIL, "mail2@ya.ru");
+        R2.addContact(ContactType.PHONE, "22222");
         R2.addSection(SectionType.OBJECTIVE, new TextSection("Objective2"));
         R2.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
         R2.addSection(SectionType.ACHIEVEMENT, new ListSection("Achivment21", "Achivment22", "Achivment23"));
@@ -78,10 +79,8 @@ public abstract class AbstractStorageTest {
                                 new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", "www"),
                                 new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
                         new Organization("Organization22", "http://Organization23.ru")));
-*/
-      /*  R3.addContact(ContactType.MAIL, "mail3@ya.ru");
-        R3.addContact(ContactType.PHONE, "33333");*/
-        /*
+        R3.addContact(ContactType.MAIL, "mail3@ya.ru");
+        R3.addContact(ContactType.PHONE, "33333");
         R3.addSection(SectionType.OBJECTIVE, new TextSection("Objective3"));
         R3.addSection(SectionType.PERSONAL, new TextSection("Personal data"));
         R3.addSection(SectionType.ACHIEVEMENT, new ListSection("Achivment31", "Achivment32", "Achivment33"));
@@ -99,10 +98,6 @@ public abstract class AbstractStorageTest {
                         new Organization("Organization31", "www")));
     }
 
-        R4.addContact(ContactType.MAIL, "mail4@ya.ru");
-        R4.addContact(ContactType.PHONE, "444444");
-    */
-    }
 
     protected AbstractStorageTest(Storage storage) {
         this.storage = storage;
