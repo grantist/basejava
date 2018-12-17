@@ -1,14 +1,12 @@
 package com.javops.webapp.storage;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.javops.webapp.exception.NotExistStorageException;
 import com.javops.webapp.model.ContactType;
 import com.javops.webapp.model.Resume;
 import com.javops.webapp.model.Section;
 import com.javops.webapp.model.SectionType;
 import com.javops.webapp.sql.SqlHelper;
-import com.javops.webapp.util.JsonSectionAdapter;
+import com.javops.webapp.util.JsonParser;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -181,7 +179,7 @@ public class SqlStorage implements Storage {
                 ps.setString(1, r.getUuid());
                 ps.setString(2, e.getKey().name());
                 Section section = e.getValue();
-                ps.setString(3, adapter.toJson(section, Section.class));
+                ps.setString(3, JsonParser.write(section, Section.class));
                 ps.addBatch();
             }
             ps.executeBatch();
@@ -196,15 +194,11 @@ public class SqlStorage implements Storage {
         }
     }
 
-    private static Gson adapter = new GsonBuilder()
-            .registerTypeAdapter(Section.class, new JsonSectionAdapter())
-            .create();
-
     private void addSections(ResultSet rs, Resume r) throws SQLException {
         String content = rs.getString("content");
         if (content != null) {
             SectionType type = SectionType.valueOf(rs.getString("type"));
-            r.addSection(type, adapter.fromJson(content, Section.class));
+            r.addSection(type, JsonParser.read(content, Section.class));
         }
     }
 

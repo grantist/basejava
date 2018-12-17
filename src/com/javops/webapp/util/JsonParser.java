@@ -4,10 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.javops.webapp.model.Section;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
-import javax.xml.bind.Unmarshaller;
 import java.io.Reader;
 import java.io.Writer;
 
@@ -22,5 +18,17 @@ public class JsonParser {
 
     public static <T> void write(T object, Writer writer) {
         GSON.toJson(object, writer);
+    }
+
+    public static <T> T read(String content, Class<T> clazz) {
+        return GSON.fromJson(content, clazz);
+    }
+
+    public static <T> String write(T object) {
+        return GSON.toJson(object);
+    }
+
+    public static <T> String write(T object, Class<T> clazz) {
+        return GSON.toJson(object, clazz);
     }
 }
