@@ -22,15 +22,14 @@ public class ResumeServlet extends HttpServlet {
         storage = Config.get().getStorage();
     }
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException {
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)throws javax.servlet.ServletException, IOException {
     }
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException  {
         request.setCharacterEncoding("UTF-8");
-        String name = request.getParameter("name");
-        response.setContentType("text/html: charset=UTF-8");
         response.setCharacterEncoding("UTF-8");
 
+        response.setContentType("text/html; charset=UTF-8");
         Writer writer = response.getWriter();
         writer.write(
                 "<html>" +
