@@ -3,12 +3,12 @@ package com.javops.webapp.storage;
 import com.javops.webapp.Config;
 import com.javops.webapp.exception.ExistStorageException;
 import com.javops.webapp.exception.NotExistStorageException;
-import com.javops.webapp.model.ContactType;
-import com.javops.webapp.model.Resume;
+import com.javops.webapp.model.*;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.time.Month;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -52,6 +52,19 @@ public abstract class AbstractStorageTest {
         newResume.addContact(ContactType.MAIL, "mail1@google.com");
         newResume.addContact(ContactType.SKYPE, "NewSkype");
         newResume.addContact(ContactType.MOBILE, "+7 921 222-22-22");
+        newResume.addSection(SectionType.PERSONAL, new TextSection("AAAA"));
+        newResume.addSection(SectionType.OBJECTIVE, new TextSection("Developer"));
+        newResume.addSection(SectionType.ACHIEVEMENT, new ListSection("Q1", "Q2", "Q3"));
+        newResume.addSection(SectionType.EDUCATION, new OrganizationSection(
+                new Organization("Institute", "www",
+                        new Organization.Position(1996, Month.JANUARY, 2000, Month.DECEMBER, "aspirant", "www"),
+                        new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "student", "IT facultet")),
+                new Organization("Organization12", "http://Organization12.ru")));
+        newResume.addSection(SectionType.QUALIFICATIONS, new ListSection("F1", "F2", "F3"));
+        newResume.addSection(SectionType.EXPERIENCE, new OrganizationSection(
+                new Organization("Organization11", null,
+                        new Organization.Position(2005, Month.JANUARY, "position1", null),
+                        new Organization.Position(2001, Month.MARCH, 2005, Month.JANUARY, "position2", "content2"))));
         storage.update(newResume);
         assertTrue(newResume.equals(storage.get(UUID_1)));
     }

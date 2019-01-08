@@ -20,7 +20,7 @@ public interface Storage {
     /**
      * @return array, contains only Resumes in storage (without null)
      */
-    List<Resume> getAllSorted() throws SQLException;
+    List<Resume> getAllSorted();
 
     int size();
 }

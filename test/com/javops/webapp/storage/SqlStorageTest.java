@@ -7,3 +7,4 @@ public class SqlStorageTest extends AbstractStorageTest {
         super(Config.get().getStorage());
     }
 }
+
