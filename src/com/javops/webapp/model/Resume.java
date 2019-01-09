@@ -98,4 +98,8 @@ public class Resume implements Comparable<Resume>, Serializable {
     public void setFullName(String fullName) {
         this.fullName = fullName;
     }
+
+    public void setSection(SectionType type, Section section) {
+        sections.put(type, section);
+    }
 }

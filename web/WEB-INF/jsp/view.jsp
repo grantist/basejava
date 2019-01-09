@@ -15,20 +15,19 @@
 <body>
 <jsp:include page="fragments/header.jsp"/>
 <section>
-    <h2>${resume.fullName}&nbsp;<a href="resume?uuid=${resume.uuid}&action=edit"><img src="img/pencil.png"></a></h2>
+    <h1>${resume.fullName}&nbsp;<a href="resume?uuid=${resume.uuid}&action=edit"><img src="img/pencil.png"></a></h1>
     <p>
         <c:forEach var="contactEntry" items="${resume.contacts}">
             <jsp:useBean id="contactEntry"
                          type="java.util.Map.Entry<com.javops.webapp.model.ContactType, java.lang.String>"/>
                 <%=contactEntry.getKey().toHtml(contactEntry.getValue())%><br/>
         </c:forEach>
-
     <p>
     <hr>
     <table cellpadding="2">
         <c:forEach var="sectionEntry" items="${resume.sections}">
             <jsp:useBean id="sectionEntry"
-                         type="java.util.Map.Entry<com.javops.webapp.model.SectionType, com.javops.webapp.model.Section>"/>
+                         type="java.util.Map.Entry<com.javops.webapp.model.SectionType,com.javops.webapp.model.Section>"/>
             <c:set var="type" value="${sectionEntry.key}"/>
             <c:set var="section" value="${sectionEntry.value}"/>
             <jsp:useBean id="section" type="com.javops.webapp.model.Section"/>
@@ -55,9 +54,8 @@
                     <tr>
                         <td colspan="2">
                             <ul>
-                                <c:forEach var="item" items="<%=((ListSection) section).getItems()%>">
-                                    <li>${item}</li>
-                                </c:forEach>
+                                <textarea name='${type}' cols=75
+                                          rows=5><%=String.join("\n", ((ListSection) section).getItems())%></textarea>
                             </ul>
                         </td>
                     </tr>

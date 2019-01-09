@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="com.javops.webapp.model.ContactType" %>
+<%@ page import="com.javops.webapp.model.ListSection" %>
 <%@ page import="com.javops.webapp.model.SectionType" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -38,6 +39,11 @@
                 </c:when>
                 <c:when test="${type=='PERSONAL'}">
                     <textarea name='${type}' cols=75 rows=5><%=section%></textarea>
+                </c:when>
+
+                <c:when test="${type=='QUALIFICATIONS' || type=='ACHIEVEMENT'}">
+                    <textarea name='${type}' cols=75
+                              rows=5><%=String.join("\n", ((ListSection) section).getItems())%></textarea>
                 </c:when>
             </c:choose>
         </c:forEach>
