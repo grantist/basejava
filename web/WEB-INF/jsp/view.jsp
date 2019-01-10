@@ -35,18 +35,11 @@
                 <td colspan="2"><h2><a name="type.name">${type.title}</a></h2></td>
             </tr>
             <c:choose>
-                <c:when test="${type=='OBJECTIVE'}">
+                <c:when test="${type=='OBJECTIVE'||type=='PERSONAL'}">
                     <tr>
                         <td colspan="2">
                             <h3><%=((TextSection) section).getContent()%>
                             </h3>
-                        </td>
-                    </tr>
-                </c:when>
-                <c:when test="${type=='PERSONAL'}">
-                    <tr>
-                        <td colspan="2">
-                            <%=((TextSection) section).getContent()%>
                         </td>
                     </tr>
                 </c:when>
