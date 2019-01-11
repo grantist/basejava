@@ -1,6 +1,4 @@
 <%@ page import="com.javops.webapp.model.ContactType" %>
-<%@ page import="com.javops.webapp.model.Section" %>
-<%@ page import="com.javops.webapp.model.SectionType" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
@@ -11,6 +9,7 @@
 </head>
 <body>
 <section>
+    <a href="resume?action=add"><img src="img/add.png"></a>
     <table border="1" cellpadding="8" cellspacing="0">
         <tr>
             <th>Имя</th>

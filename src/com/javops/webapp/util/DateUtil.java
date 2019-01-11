@@ -17,4 +17,11 @@ public class DateUtil {
         if (date == null) return "";
         return date.equals(NOW) ? "по наст.время" : date.format(DATE_FORMATTER);
     }
+
+
+    public static LocalDate parse(String date) {
+        if (Html.isEmpty(date) || "по наст.время".equals(date)) return NOW;
+        YearMonth yearMonth = YearMonth.parse(date, DATE_FORMATTER);
+        return LocalDate.of(yearMonth.getYear(), yearMonth.getMonth(), 1);
+    }
 }
