@@ -30,14 +30,20 @@ public class ResumeServlet extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String uuid = request.getParameter("uuid");
         String fullName = request.getParameter("fullName");
-        Resume r = storage.get(uuid);
-        r.setFullName(fullName);
+        Resume resume;
+        if (uuid == null || uuid.length() == 0) {
+            resume = new Resume(fullName);
+        } else {
+            resume = storage.get(uuid);
+            resume.setFullName(fullName);
+        }
+
         for (ContactType type : ContactType.values()) {
             String value = request.getParameter(type.name());
             if (value != null && value.trim().length() != 0) {
-                r.addContact(type, value);
+                resume.addContact(type, value);
             } else {
-                r.getContacts().remove(type);
+                resume.getContacts().remove(type);
             }
         }
 
@@ -47,11 +53,11 @@ public class ResumeServlet extends HttpServlet {
             switch (type) {
                 case OBJECTIVE:
                 case PERSONAL:
-                    r.setSection(type, new TextSection(value));
+                    resume.setSection(type, new TextSection(value));
                     break;
                 case ACHIEVEMENT:
                 case QUALIFICATIONS:
-                    r.setSection(type, new ListSection(value.split("\\n")));
+                    resume.setSection(type, new ListSection(value.split("\\n")));
                     break;
                 case EDUCATION:
                 case EXPERIENCE:
@@ -74,15 +80,15 @@ public class ResumeServlet extends HttpServlet {
                             organizations.add(new Organization(new Link(name, list[i]), positions));
                         }
                     }
-                    r.setSection(type, new OrganizationSection(organizations));
+                    resume.setSection(type, new OrganizationSection(organizations));
                     break;
             }
         }
 
         if (uuid == null || uuid.length() == 0) {
-            storage.save(r);
+            storage.save(resume);
         } else {
-            storage.update(r);
+            storage.update(resume);
         }
         response.sendRedirect("resume");
     }
